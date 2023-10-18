@@ -86,7 +86,7 @@ li{
     border: 0;
     background-color: rgb(256, 256, 256, 0.5);
 }
-#tabbt:hover{
+#tabbt:hover{ 
     color: black;
     font-weight: bold;
     border-bottom: 1px solid black;
