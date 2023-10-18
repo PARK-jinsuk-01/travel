@@ -29,3 +29,4 @@ public class Member {
     this.mData = LocalDateTime.now().truncatedTo(ChronoUnit.DAYS);
 }
 }
+ 
