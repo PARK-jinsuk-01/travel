@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>OUR_TRIP</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <div class="signupcontainer">
+        <form id="signupForm" action="/signup" method="post">
+            <label for="email">Email:</label>
+            <input type="text" class="email" name="email" id="email" placeholder="이메일을 입력해주세요"
+                onkeyup="validateEmail()">
+            <div id="email-error" class="error-message"></div>
+            <div id="email-success" class="success-message"></div>
+
+            <label for="pw">Password:</label>
+            <input type="password" class="pw" name="pw" required title="비밀번호를 입력해주세요" onkeyup="validatePw()"
+                placeholder="비밀번호를 입력해 주세요">
+            <div id="pw-error" class="error-message"></div>
+            <div id="pw-success" class="success-message"></div>
+
+            <label for="name">Name:</label>
+            <input type="text" class="name" name="name" id="name" placeholder="이름을 입력해주세요">
+
+            <label for="phone">Phone Number:</label>
+            <input type="text" class="phone" name="phone" id="phone" placeholder="핸드폰 번호를 입력해주세요"
+                oninput="this.value = this.value.replace(/[^0-9]/g, ''); validatePhone();" maxlength="11">
+            <div id="phone-error" class="error-message"></div>
+
+            <label for="birth">Birthday:</label>
+            <input type="text" class="birth" name="yy" placeholder="yy" oninput="this.value = this.value.replace(/[^0-9]/g, '');"
+                maxlength="4">
+            <input type="text" class="birth" name="mm" placeholder="mm" oninput="this.value = this.value.replace(/[^0-9]/g, '');"
+                maxlength="2" onblur="validateMonth(this);">
+            <input type="text" class="birth" name="dd" placeholder="dd" oninput="this.value = this.value.replace(/[^0-9]/g, '');"
+                maxlength="2" onblur="validateDay(this);">
+
+            <button type="button" class="btn" id="signupButton" disabled>Sign Up</button>
+        </form>
+    </div>
+
+    <div id="result"></div>
+
+    <script>
+        const emailElement = document.querySelector('#email');
+        emailElement.addEventListener('focusout', checkEmailAvailability);
+
+        async function checkEmailAvailability() {
+            const email = document.querySelector("[name=email]").value;
+            var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+            if (!emailPattern.test(email)) {
+                document.getElementById("email-error").textContent = "올바른 email 형식이 아닙니다.";
+                document.getElementById("email-success").textContent = '';
+            } else {
+                const response = await fetch(`/checkEmailAvailability?email=${email}`);
+                const result = await response.text();
+                if (result === "가입불가") {
+                    document.getElementById("email-error").textContent = "중복된 이메일 주소입니다.";
+                    document.getElementById("email-success").textContent = '';
+                } else {
+                    document.getElementById("email-error").textContent = "";
+                    document.getElementById("email-success").textContent = '사용 가능합니다.';
+                }
+                updateSubmitButton();
+            }
+        }
+
+        async function validatePw() {
+            const pw = document.querySelector("[name=pw]").value;
+            var pwPattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+            if (!pwPattern.test(pw)) {
+                document.getElementById("pw-error").textContent = "비밀번호는 영문, 숫자, 특수문자를 모두 포함하고 8자리 이상이어야 합니다.";
+                document.getElementById("pw-success").textContent = "";
+            } else {
+                document.getElementById("pw-error").textContent = "";
+                document.getElementById("pw-success").textContent = '사용 가능합니다.';
+            }
+            updateSubmitButton();
+        }
+
+        function validatePhone() {
+            const phone = document.querySelector("[name=phone]").value;
+
+            if (phone.length !== 11) {
+                document.getElementById("phone-error").textContent = "핸드폰 번호는 11자리여야 합니다.";
+            } else {
+                document.getElementById("phone-error").textContent = "";
+            }
+            updateSubmitButton();
+        }
+
+        function validateMonth(monthField) {
+            var value = parseInt(monthField.value);
+            if (isNaN(value) || value < 1 || value > 12) {
+                alert("월은 1부터 12까지의 숫자만 입력할 수 있습니다.");
+                monthField.value = "";
+            }
+            updateSubmitButton();
+        }
+
+        function validateDay(dayField) {
+            var value = parseInt(dayField.value);
+            if (isNaN(value) || value < 1 || value > 31) {
+                alert("일은 1부터 31까지의 숫자만 입력할 수 있습니다.");
+                dayField.value = "";
+            }
+            updateSubmitButton();
+        }
+
+        function updateSubmitButton() {
+            const emailError = document.getElementById("email-error").textContent;
+            const pwError = document.getElementById("pw-error").textContent;
+            const phoneError = document.getElementById("phone-error").textContent;
+
+            if (emailError === "" && pwError === "" && phoneError === "") {
+                // 모든 유효성 검사를 통과하면 가입 버튼 활성화
+                $("#signupButton").prop("disabled", false);
+            } else {
+                // 하나라도 유효성 검사에 실패하면 가입 버튼 비활성화
+                $("#signupButton").prop("disabled", true);
+            }
+        }
+
+        $(document).ready(function () {
+            // Sign Up 버튼을 클릭할 때 비동기 통신을 시작합니다.
+            $("#signupButton").click(function () {
+                $.ajax({
+                    type: "POST",
+                    url: "/signup",
+                    data: $("#signupForm").serialize(),
+                    success: function (response) {
+                        $("#result").html(response);
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
