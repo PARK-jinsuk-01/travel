@@ -27,7 +27,6 @@ header a {
     width: 100%;
     height: 20px;
     text-decoration: none;
-    /* background: url(https://blog.kakaocdn.net/dn/UHk8p/btsyJO6oFpC/uAd5RZrz3Zw0tgFtjWpWZ0/img.png); */
     font-size: 40px;
     font-weight: bold;
 }
@@ -65,7 +64,6 @@ header .tab li{
     vertical-align: top;
     border-radius: 0;
     box-sizing: border-box;
-    /* -webkit-text-size-adjust: none; */
     touch-action: manipulation;
 
 }
@@ -152,6 +150,7 @@ input::placeholder {
 }
 
 .saveid {
+    margin-top: 10px;
     position: relative;
     height: 42px;
 }

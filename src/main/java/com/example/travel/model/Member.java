@@ -1,6 +1,6 @@
 package com.example.travel.model;
 
-import java.time.LocalDate;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
@@ -14,7 +14,7 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Member {
+public class Member implements Serializable{
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
    private int id;
    private String email;

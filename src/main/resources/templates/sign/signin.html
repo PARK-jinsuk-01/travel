@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/cssjs/signin.css}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>signin</title>
+</head>
+
+<body>
+    <div id="wrapper">
+        <header>
+            <div class="main">
+                <a href="/">TRAVEL</a>
+            </div>
+            <div class="tab">
+                <ul>
+                    <li>
+                        <a href="#">
+                            <button id="tabbt">Email 로그인</button>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <button id="tabbt">1회용 로그인</button>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <button id="tabbt">QR 로그인</button>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </header>
+        <form action="/signin" method="post">
+            <div id="login">
+
+                <label for="emaillabel"></label>
+                <div class="id">
+                    <input type="text" name="email" id="email" placeholder="Email을 입력해주세요"><br>
+                </div>
+                <span id="emailError" class="error-message"></span>
+
+                <label for="pwlabel"></label>
+                <div class="pw">
+                    <input type="password" name="pw" id="pw" placeholder="Pw를 일렵해주세요"><br>
+                </div>
+                <span id="pwError" class="error-message"></span>
+                <div id="errorMsg" class="error-message"></div>
+            </div>
+            <div class="saveid">
+                <input type="checkbox">
+                <label for="keepLogin">로그인 상태 유지</label>
+            </div>
+            <button type="submit" th:text="로그인" class="btlogin" onclick="submitForm(event)">로그인</button>
+
+        </form>
+
+        <div class="tpa">
+            <a href="#">
+                <button id="logbt">
+                    Facebook 계정으로 로그인
+                </button>
+            </a>
+            <a href="https://nid.naver.com/nidlogin.login?mode=form&url=https://www.naver.com/">
+                <button id="logbt">
+                    Naver 계정으로 로그인
+                </button>
+            </a>
+            <a href="#">
+                <button id="logbt">
+                    Google 계정으로 로그인
+                </button>
+            </a>
+            <a href="#">
+                <button id="logbt">
+                    Apple 계정으로 로그인
+                </button>
+            </a>
+        </div>
+    </div>
+
+</body>
+
+<script>
+    async function submitForm(event) {
+        event.preventDefault();
+
+        var email = document.getElementById('email').value;
+        var pw = document.getElementById("pw").value;
+        var pwError = document.getElementById('pwError');
+        var errorMsg = document.getElementById('errorMsg');
+        var emailError = document.getElementById('emailError');
+
+        if (!email || !pw) {
+            if (!email) {
+                emailError.innerText = 'Email을 입력해주세요';
+                errorMsg.innerText = '';
+                pwError.innerText = '';
+            } else {
+                pwError.innerText = 'Pw를 입력해주세요';
+                errorMsg.innerText = '';
+                emailError.innerText = '';
+            }
+            return false;
+        }
+
+        // const formData = new FormData();
+        // formData.append("email", email);
+
+        const response = await fetch('/signin', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email, pw })
+            // body: formData
+        });
+
+        const data = await response.json();
+
+        if (data.code === 1) {
+            window.location.href = "/"; // Redirect on successful login
+        } else {
+            errorMsg.innerText = data.errorMsg || 'Email과 Pw를 확인해주세요';
+            pwError.innerText = '';
+        }
+        return false;
+    }
+</script>
+
+</html>
