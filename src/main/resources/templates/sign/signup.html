@@ -3,11 +3,20 @@
 
 <head>
     <title>OUR_TRIP</title>
+    <link rel="stylesheet" th:href="@{/cssjs/signup.css}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
+
     <div class="signupcontainer">
+        <div class="signup-head">
+            <h2>회원가입</h2>
+            <!-- <img class="logo" src="./images/images2/logo-naver.png"> -->
+            <a href="/">
+                <button type="button" class="btn-h" id="homeButton">home</button>
+            </a>
+        </div>
         <form id="signupForm" action="/signup" method="post">
             <label for="email">Email:</label>
             <input type="text" class="email" name="email" id="email" placeholder="이메일을 입력해주세요"
@@ -23,25 +32,30 @@
 
             <label for="name">Name:</label>
             <input type="text" class="name" name="name" id="name" placeholder="이름을 입력해주세요">
-
+            <div></div>
             <label for="phone">Phone Number:</label>
             <input type="text" class="phone" name="phone" id="phone" placeholder="핸드폰 번호를 입력해주세요"
                 oninput="this.value = this.value.replace(/[^0-9]/g, ''); validatePhone();" maxlength="11">
             <div id="phone-error" class="error-message"></div>
 
             <label for="birth">Birthday:</label>
-            <input type="text" class="birth" name="yy" placeholder="yy" oninput="this.value = this.value.replace(/[^0-9]/g, '');"
-                maxlength="4">
-            <input type="text" class="birth" name="mm" placeholder="mm" oninput="this.value = this.value.replace(/[^0-9]/g, '');"
-                maxlength="2" onblur="validateMonth(this);">
-            <input type="text" class="birth" name="dd" placeholder="dd" oninput="this.value = this.value.replace(/[^0-9]/g, '');"
-                maxlength="2" onblur="validateDay(this);">
-
+            <div></div>
+            <input type="text" class="birth" name="yy" placeholder="yy"
+                oninput="this.value = this.value.replace(/[^0-9]/g, ''); updateBirth();" maxlength="4">
+            <input type="text" class="birth" name="mm" placeholder="mm"
+                oninput="this.value = this.value.replace(/[^0-9]/g, ''); updateBirth();" maxlength="2"
+                onblur="validateMonth(this);">
+            <input type="text" class="birth" name="dd" placeholder="dd"
+                oninput="this.value = this.value.replace(/[^0-9]/g, ''); updateBirth();" maxlength="2"
+                onblur="validateDay(this);">
+            <h1 id="birth" name="birth">생년월일: </h1>
+            
             <button type="button" class="btn" id="signupButton" disabled>Sign Up</button>
+            <div id="result"></div>
         </form>
     </div>
 
-    <div id="result"></div>
+
 
     <script>
         const emailElement = document.querySelector('#email');
@@ -110,6 +124,17 @@
             }
             updateSubmitButton();
         }
+        function updateBirth() {
+            const yy = document.querySelector("[name=yy]").value;
+            const mm = document.querySelector("[name=mm]").value;
+            const dd = document.querySelector("[name=dd]").value;
+            const birth = `${yy}-${mm}-${dd}`;
+
+            // "h1" 태그에 날짜 정보 추가
+            document.getElementById("birth").textContent = `생년월일: ${birth}`;
+            updateSubmitButton();
+        
+        }
 
         function updateSubmitButton() {
             const emailError = document.getElementById("email-error").textContent;
@@ -118,10 +143,12 @@
 
             if (emailError === "" && pwError === "" && phoneError === "") {
                 // 모든 유효성 검사를 통과하면 가입 버튼 활성화
-                $("#signupButton").prop("disabled", false);
+                $("#signupButton").prop("disabled", false),
+                    $("#homeButton").prop("disabled", false);
             } else {
                 // 하나라도 유효성 검사에 실패하면 가입 버튼 비활성화
-                $("#signupButton").prop("disabled", true);
+                $("#signupButton").prop("disabled", true),
+                    $("#homeButton").prop("disabled", true);
             }
         }
 

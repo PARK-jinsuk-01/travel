@@ -1,6 +1,6 @@
 package com.example.travel.model;
-
 import java.io.Serializable;
+
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
@@ -16,17 +16,25 @@ import lombok.Data;
 @Data
 public class Member implements Serializable{
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
-   private int id;
+   private Integer id;
    private String email;
    private String name;
    private String pw;
    private String phone;
-   private Integer birth;
+   public String birth;
+   public Integer yy;
+   public Integer mm;
+   public Integer dd;
+
+   
    
    LocalDateTime mData;
    @PrePersist
     public void prePersist() {
     this.mData = LocalDateTime.now().truncatedTo(ChronoUnit.DAYS);
+}
+public boolean isEmpty() {
+    return false;
 }
 }
  
