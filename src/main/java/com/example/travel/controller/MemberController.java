@@ -1,5 +1,7 @@
 package com.example.travel.controller;
 
+import java.util.Optional;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,37 +31,28 @@ public class MemberController {
     HttpSession session;
 
     // @GetMapping("/signin")
-    // public String signin() {
-    // return "signin";
+    // public String signinPage() {
+    // return "sign/signin";
     // }
 
     // @PostMapping("/signin")
     // public String signinPost(@ModelAttribute Member member, Model model) {
-    // Member dbUsers = memberRepository.findByEmail(member.getEmail());
+    // Member dbUser = memberRepository.findByEmail(member.getEmail());
 
-    // if (dbUsers != null && !dbUsers.isEmpty()) {
-    // member dbUser = dbUsers.get(0); // 첫 번째 사용자를 선택
-
-    // String encodedPwd = dbUser.getPw();
-    // String userPwd = member.getPw();
-    // boolean isMatch = passwordEncoder.matches(userPwd, encodedPwd);
-
-    // if (isMatch) {
+    // if (dbUser != null) {
+    // if (passwordEncoder.matches(member.getPw(), dbUser.getPw())) {
+    // // 로그인 성공
     // session.setAttribute("user_id", dbUser.getId());
     // session.setAttribute("user_email", dbUser.getEmail());
-
-    // return "redirect:/"; // 로그인 성공 시 홈 페이지로 리다이렉트
+    // return "redirect:/";
     // } else {
-    // model.addAttribute("error", "Invalid email or password");
-    // return "signin";
+    // model.addAttribute("error", "비밀번호가 일치하지 않습니다.");
     // }
     // } else {
-    // model.addAttribute("error", "User not found");
-    // return "signin";
+    // model.addAttribute("error", "사용자가 존재하지 않습니다.");
     // }
+    // return "sign/signin";
     // }
-
-   
 
     @GetMapping("/signup")
     public String signup() {
@@ -67,32 +60,36 @@ public class MemberController {
     }
 
     @PostMapping("/signup")
-@ResponseBody
-@Transactional
-public String signupPost(@ModelAttribute Member member, BindingResult bindingResult) {
-    // 빈 필드 검사
-    if (member.getEmail() == null || member.getEmail().isEmpty() ||
-        member.getPw() == null || member.getPw().isEmpty() ||
-        // member.getBirth() == null || member.getBirth().isEmpty()||
-        member.getPhone() == null || member.getPhone().isEmpty()) {
-        return "모든 필드를 작성해주세요.";
-    }
+    @ResponseBody
+    @Transactional
+    public String signupPost(@ModelAttribute Member member, BindingResult bindingResult) {
+        // 빈 필드 검사
+        if (member.getEmail() == null || member.getEmail().isEmpty() ||
+            member.getPw() == null || member.getPw().isEmpty() ||
+            member.getPhone() == null || member.getPhone().isEmpty()) {
+            return "모든 필드를 작성해주세요.";
+        }
+       
+        String birth = member.getYy() + "-" + member.getMm() + "-" + member.getDd();
+        member.setBirth(birth);
+        System.out.println(birth);
 
-    Member emailCheck = memberRepository.findByEmail(member.getEmail());
-    if (emailCheck != null) {
-        return "이미 가입된 이메일입니다.";
-    }
-    Member phoneCheck = memberRepository.findByPhone(member.getPhone());
-    if (phoneCheck != null) {
-        return "중복된 핸드폰 번호입니다.";
-    }
-    String rawPassword = member.getPw();
-    String encodedPassword = passwordEncoder.encode(rawPassword);
-    member.setPw(encodedPassword);
+        Member emailCheck = memberRepository.findByEmail(member.getEmail());
+        if (emailCheck != null) {
+            return "이미 가입된 이메일입니다.";
+        }
+        Member phoneCheck = memberRepository.findByPhone(member.getPhone());
+        if (phoneCheck != null) {
+            return "중복된 핸드폰 번호입니다.";
+        }
 
-    memberRepository.save(member);
-    return "가입이 완료되었습니다.";
-}
+        String rawPassword = member.getPw();
+        String encodedPassword = passwordEncoder.encode(rawPassword);
+        member.setPw(encodedPassword);
+
+        memberRepository.save(member);
+        return "가입이 완료되었습니다.";
+    }
 
     @RequestMapping("/checkEmailAvailability")
     @ResponseBody
