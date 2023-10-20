@@ -48,18 +48,19 @@ public class MemberController {
         String dd =(String) data.get("dd");
         
 
-        System.out.println(data.get("name"));
+        System.out.println(data.get("yy"));
         if (email == null || email.isEmpty() ||
            pw == null || pw.isEmpty() ||
            phone == null || phone.isEmpty()) {
             return "모든 필드를 작성해주세요.";
         }
 
-        String birth = yy + "-" + mm + "-" + dd;
+        String birth = (String)(yy + "-" + mm + "-" + dd);  
+        
         
 
         
-
+        System.out.println(birth);
         // 세션 데이터와 입력 데이터 비교
        
         Member emailCheck = memberRepository.findByEmail(email);
@@ -75,10 +76,14 @@ public class MemberController {
         String encodedPassword = passwordEncoder.encode(rawPassword);
         
         Member member = new Member();
+        
         member.setEmail(email);
-        member.setPw(pw);
+        member.setPw(encodedPassword);
         member.setName(name);
         member.setPhone(phone);
+        member.setYy(yy);
+        member.setMm(mm);
+        member.setDd(dd);
         member.setBirth(birth);
 
         // Member 엔터티를 데이터베이스에 저장

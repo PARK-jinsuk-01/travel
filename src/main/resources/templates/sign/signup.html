@@ -116,14 +116,6 @@
                     const echeckSuccess = document.getElementById("echeck-success");
                  
 
-                    if (echeck.value === skey) {
-                        echeckSuccess.textContent = "확인되었습니다.";
-                        echeckError.textContent = "";
-                    } else {
-                        echeckSuccess.textContent = "";
-                        echeckError.textContent = "인증 번호를 다시 확인해 주세요.";
-                    }
-
                     updateSubmitButton();
 
 
@@ -163,7 +155,6 @@
                 updateSubmitButton();
             }
         }
-        // const key = securitycode.getElementById(securitycode.value);
 
         async function validateEcheck() {
             const check = document.querySelector("[name=echeck]").value;
