@@ -115,6 +115,10 @@ button {
 .tpa{
     padding-top: 30px;
 }
+.tpa a {
+    text-decoration: none;
+
+}
 
 #login{
     display: block;
