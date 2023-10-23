@@ -10,10 +10,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.travel.model.Member;
@@ -37,7 +39,8 @@ public class SignContoller {
     HttpSession session;
 
     @GetMapping("/signin")
-    public String signin() {
+    public String signin(Model model, @RequestParam(required = false)String page) {
+        model.addAttribute("page", page);
         return "/sign/signin";
     }
 

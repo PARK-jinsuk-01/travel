@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="https://kit.fontawesome.com/63fc58c3dd.js" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/cssjs/board.css}" />
+
+    <title>TravelBoard</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="bar">
+            <h1 class="logo">
+                <a href="/">
+                    <img src="/img/logo.png" alt="Travel">
+                </a>
+            </h1>
+            <div class="barleft">
+                <div class="allmenu">
+                    <a href="">
+                        <span class="baricon">
+                            <i class="fa-solid fa-bars"></i>
+                        </span>
+                        <span>메뉴</span>
+                    </a>
+                </div>
+            </div>
+            <div class="barright">
+                <div class="join">
+                    <button th:if="${email == null}">회원가입</button>
+                </div>
+                <div class="login" id="login-logout">
+                    <button id="login-button" th:if="${email == null}" onclick="loginOrLogin()">로그인</button>
+
+                    <button id="login-button" th:if="${email != null}" onclick="loginOrLogout()">로그아웃</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="subwrapper">
+        <nav class="subnav">
+            <ul>
+                <li>
+                    <a href="#">공지사항</a>
+                </li>
+                <li>
+                    <a href="#">여행계획</a>
+                </li>
+                <li>
+                    <a href="#">여행일지</a>
+                </li>
+                <li>
+                    <a href="#">고객센터</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <form action="/board" method="post">
+        <div id="wrapper">
+            <div id="contents" class="event">
+                <nav class="tab">
+                    <ul>
+                        <li class="selected">
+                            <a href="">여행일지</a>
+                        </li>
+                        <li class="selected2">
+                            <a href="">여행계획</a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="sort">
+                    <select name="region" id="region" onchange="changeRegion()" class="hot-articles">
+                        <option value="">지역을 선택하세요</option>
+                        <option value="서울특별시">서울특별시</option>
+                        <option value="부산광역시">부산광역시</option>
+                        <option value="대구광역시">대구광역시</option>
+                        <option value="인천광역시">인천광역시</option>
+                        <option value="광주광역시">광주광역시</option>
+                        <option value="대전광역시">대전광역시</option>
+                        <option value="울산광역시">울산광역시</option>
+                        <option value="세종특별자치시">세종특별자치시</option>
+                        <option value="경기도">경기도</option>
+                        <option value="강원특별자치도">강원특별자치도</option>
+                        <option value="충청북도">충청북도</option>
+                        <option value="충청남도">충청남도</option>
+                        <option value="전라북도">전라북도</option>
+                        <option value="전라남도">전라남도</option>
+                        <option value="경상북도">경상북도</option>
+                        <option value="경상남도">경상남도</option>
+                        <option value="제주특별자치도">제주특별자치도</option>
+                    </select>
+                </div>
+
+                <ul class="list" >
+                    <li class="travelcard">
+                        <a href="">
+                            <div class="img">
+                                <img src="/img/logo.png" alt="listlogo">
+                            </div>
+                            <span class="title">
+                                <p>123</p>
+                            </span>
+                            <span class="boardDate"></span>
+                            <span class="deco">
+                                <span class="userimg"></span>
+                                <span class="name">
+                                    <p>456</p>
+                                </span>
+                            </span>
+                        </a>
+                    </li>
+                    <li class="travelcard">
+                        <a href="">
+                            <span class="img">
+                                <img src="/img/spot.png" alt="listlogo">
+                            </span>
+                            <span class="title">
+                                <p>123</p>
+                            </span>
+                            <span class="boardDate"></span>
+                            <span class="deco">
+                                <span class="userimg"></span>
+                                <span class="name">
+                                    <p>456</p>
+                                </span>
+                            </span>
+                        </a>
+                    </li>
+                    <li class="travelcard">
+                        <a href="">
+                            <span class="img">
+                                <img src="/img/logo.png" alt="listlogo">
+                            </span>
+                            <span class="title">
+                                <p>123</p>
+                            </span>
+                            <span class="boardDate"></span>
+                            <span class="deco">
+                                <span class="userimg"></span>
+                                <span class="name">
+                                    <p>456</p>
+                                </span>
+                            </span>
+                        </a>
+                    </li>
+                    <li class="travelcard">
+                        <a href="">
+                            <span class="img">
+                                <img src="/img/spot.png" alt="listlogo">
+                            </span>
+                            <span class="title">
+                                <p>123</p>
+                            </span>
+                            <span class="boardDate"></span>
+                            <span class="deco">
+                                <span class="userimg"></span>
+                                <span class="name">
+                                    <p>456</p>
+                                </span>
+                            </span>
+                        </a>
+                    </li>
+                    <li class="travelcard">
+                        <a href="">
+                            <span class="img">
+                                <img src="/img/logo.png" alt="listlogo">
+                            </span>
+                            <span class="title">
+                                <p>123</p>
+                            </span>
+                            <span class="boardDate"></span>
+                            <span class="deco">
+                                <span class="userimg"></span>
+                                <span class="name">
+                                    <p>456</p>
+                                </span>
+                            </span>
+                        </a>
+                    </li>
+                    <li class="travelcard">
+                        <a href="">
+                            <span class="img">
+                                <img src="/img/spot.png" alt="listlogo">
+                            </span>
+                            <span class="title">
+                                <p>123</p>
+                            </span>
+                            <span class="boardDate"></span>
+                            <span class="deco">
+                                <span class="userimg"></span>
+                                <span class="name">
+                                    <p>456</p>
+                                </span>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="footer">
+                <p>Kepco Boot Capm</p>
+            </div>
+        </div>
+    </form>
+</body>
+
+<script>
+    async function loginOrLogout() {
+        // 현재 버튼의 텍스트 값을 확인하여 로그인 상태인지 확인
+
+        try {
+            // 로그아웃 버튼을 클릭한 경우 세션 값 삭제
+            const response = await fetch("/logout", {
+                method: "POST"
+            });
+            const data = await response.json();
+            // 현재 페이지 리로드
+            location.reload();
+
+        } catch (error) {
+            console.error("오류 발생: " + error);
+        }
+
+    }
+    function loginOrLogin() {
+        window.location.href = "/signin?page=board"
+        //해당 페이지 로그인버튼의 = get 주소값 으로 써주면 로그인시 해당 페이지로 진입 
+        sessionStorage;
+
+    }
+</script>
+
+</html>

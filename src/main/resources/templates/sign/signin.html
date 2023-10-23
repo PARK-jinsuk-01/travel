@@ -81,10 +81,12 @@
             </a>
         </div>
     </div>
-
+<input id="page" type="hidden"  th:value="${page} != null ? ${page}:'' ">
 </body>
 
 <script>
+
+const page = document.getElementById("page");
     async function submitForm(event) {
         event.preventDefault();
 
@@ -122,7 +124,7 @@
         const data = await response.json();
 
         if (data.code === 1) {
-            window.location.href = "/"; // Redirect on successful login
+            window.location.href = "/"+page.value; // Redirect on successful login
         } else {
             errorMsg.innerText = data.errorMsg || 'Email과 Pw를 확인해주세요';
             pwError.innerText = '';

@@ -1,7 +1,5 @@
 package com.example.travel.controller;
 
-import java.util.Optional;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,30 +26,6 @@ public class MemberController {
     PasswordEncoder passwordEncoder;
     @Autowired
     HttpSession session;
-
-    // @GetMapping("/signin")
-    // public String signinPage() {
-    // return "sign/signin";
-    // }
-
-    // @PostMapping("/signin")
-    // public String signinPost(@ModelAttribute Member member, Model model) {
-    // Member dbUser = memberRepository.findByEmail(member.getEmail());
-
-    // if (dbUser != null) {
-    // if (passwordEncoder.matches(member.getPw(), dbUser.getPw())) {
-    // // 로그인 성공
-    // session.setAttribute("user_id", dbUser.getId());
-    // session.setAttribute("user_email", dbUser.getEmail());
-    // return "redirect:/";
-    // } else {
-    // model.addAttribute("error", "비밀번호가 일치하지 않습니다.");
-    // }
-    // } else {
-    // model.addAttribute("error", "사용자가 존재하지 않습니다.");
-    // }
-    // return "sign/signin";
-    // }
 
     @GetMapping("/signup")
     public String signup() {

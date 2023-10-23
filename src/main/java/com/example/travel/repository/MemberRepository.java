@@ -8,7 +8,7 @@ import com.example.travel.model.Member;
 
 
 @Repository
-public interface MemberRepository extends JpaRepository<Member, String>{
+public interface MemberRepository extends JpaRepository<Member, Integer>{
     Member findByEmail(String email);
     Member findByid(String id);
     Member findByPhone(String phone);
