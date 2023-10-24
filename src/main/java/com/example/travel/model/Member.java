@@ -25,9 +25,9 @@ public class Member implements Serializable{
    private String pw;
    private String phone;
    public String birth;
-   public Integer yy;
-   public Integer mm;
-   public Integer dd;
+   public String yy;
+   public String mm;
+   public String dd;
 
    
    
