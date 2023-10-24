@@ -6,6 +6,7 @@ import java.time.temporal.ChronoUnit;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 
@@ -17,15 +18,17 @@ import lombok.Data;
 @Data
 public class TravelPlan {
     @Id @GeneratedValue
-    int id;
-    String name;
-    String email;
+     int id;
+    String title;
 
-    LocalDateTime planTime;
+    @Lob
+    String content;
+
+    LocalDateTime planData;
     
     @PrePersist
     public void prePersist() {
-        this.planTime = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
+        this.planData = LocalDateTime.now().truncatedTo(ChronoUnit.DAYS);
     }
 
     @ManyToOne

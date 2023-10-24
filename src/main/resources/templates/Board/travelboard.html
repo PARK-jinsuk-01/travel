@@ -64,13 +64,18 @@
                 <nav class="tab">
                     <ul>
                         <li class="selected">
-                            <a href="">여행일지</a>
+                            <a href="/board">여행일지</a>
                         </li>
                         <li class="selected2">
-                            <a href="">여행계획</a>
+                            <a href="/plan">여행계획</a>
                         </li>
                     </ul>
                 </nav>
+                <div class="write">
+                    <a href="/write">
+                        <button type="button" th:if="${email != null}" onclick="writego()">글쓰기</button>
+                    </a>
+                </div>
                 <div class="sort">
                     <select name="region" id="region" onchange="changeRegion()" class="hot-articles">
                         <option value="">지역을 선택하세요</option>
@@ -94,107 +99,29 @@
                     </select>
                 </div>
 
-                <ul class="list" >
-                    <li class="travelcard">
-                        <a href="">
-                            <div class="img">
-                                <img src="/img/logo.png" alt="listlogo">
+                <ul class="list">
+                    <li class="travelcard" th:each="board : ${boards}">
+                        <a th:href="@{'/board/' + ${board.id}}">
+                            <div class="img" th:utext="${board.content}">
+                                <!-- <div class="mainimg" th:utext="${board.content}"></div> -->
+                                <!-- <img th:src="" th:alt="Board Image"> -->
                             </div>
-                            <span class="title">
-                                <p>123</p>
-                            </span>
-                            <span class="boardDate"></span>
-                            <span class="deco">
-                                <span class="userimg"></span>
-                                <span class="name">
-                                    <p>456</p>
+                            <div class="detail">
+                                <div class="tandd">
+                                    <span class="title" th:text="${board.title}"></span>
+                                    <br>
+                                    <br>
+                                    <span class="boardDate"
+                                        th:text="${#temporals.format(board.boardDate, 'yy년 mm월 dd일')}"></span>
+                                </div>
+                                <span class="deco">
+                                    <span class="userimg">
+                                        <!-- <img th:src="" th:alt="User Image"> -->
+                                    </span>
+                                    <br>
+                                    <span class="name" th:text="${board.member.name}"></span>
                                 </span>
-                            </span>
-                        </a>
-                    </li>
-                    <li class="travelcard">
-                        <a href="">
-                            <span class="img">
-                                <img src="/img/spot.png" alt="listlogo">
-                            </span>
-                            <span class="title">
-                                <p>123</p>
-                            </span>
-                            <span class="boardDate"></span>
-                            <span class="deco">
-                                <span class="userimg"></span>
-                                <span class="name">
-                                    <p>456</p>
-                                </span>
-                            </span>
-                        </a>
-                    </li>
-                    <li class="travelcard">
-                        <a href="">
-                            <span class="img">
-                                <img src="/img/logo.png" alt="listlogo">
-                            </span>
-                            <span class="title">
-                                <p>123</p>
-                            </span>
-                            <span class="boardDate"></span>
-                            <span class="deco">
-                                <span class="userimg"></span>
-                                <span class="name">
-                                    <p>456</p>
-                                </span>
-                            </span>
-                        </a>
-                    </li>
-                    <li class="travelcard">
-                        <a href="">
-                            <span class="img">
-                                <img src="/img/spot.png" alt="listlogo">
-                            </span>
-                            <span class="title">
-                                <p>123</p>
-                            </span>
-                            <span class="boardDate"></span>
-                            <span class="deco">
-                                <span class="userimg"></span>
-                                <span class="name">
-                                    <p>456</p>
-                                </span>
-                            </span>
-                        </a>
-                    </li>
-                    <li class="travelcard">
-                        <a href="">
-                            <span class="img">
-                                <img src="/img/logo.png" alt="listlogo">
-                            </span>
-                            <span class="title">
-                                <p>123</p>
-                            </span>
-                            <span class="boardDate"></span>
-                            <span class="deco">
-                                <span class="userimg"></span>
-                                <span class="name">
-                                    <p>456</p>
-                                </span>
-                            </span>
-                        </a>
-                    </li>
-                    <li class="travelcard">
-                        <a href="">
-                            <span class="img">
-                                <img src="/img/spot.png" alt="listlogo">
-                            </span>
-                            <span class="title">
-                                <p>123</p>
-                            </span>
-                            <span class="boardDate"></span>
-                            <span class="deco">
-                                <span class="userimg"></span>
-                                <span class="name">
-                                    <p>456</p>
-                                </span>
-                            </span>
+                            </div>
                         </a>
                     </li>
                 </ul>
@@ -230,6 +157,11 @@
         sessionStorage;
 
     }
+    function writego() {
+        winow.location.href = "/write"
+    }
+
+
 </script>
 
 </html>
