@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>광주 관광명소</title>
+    <link rel="stylesheet" th:href="@{/cssjs/hotplace.css}">
+</head>
+<body>
+<div id="map"></div>
+<div id="search_results"></div>
+<button id="searchAgainButton">내 위치 기준 관광명소 검색</button>
+<br><br>
+<button id="searchCenterButton">지도 중심 검색</button>
+<script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=a679bbd2d4c0a6d9d0a6ecb0a24cef88&libraries=services"></script>
+<script>
+    var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
+
+    var mapContainer = document.getElementById('map');
+    var mapOption = {
+        center: new kakao.maps.LatLng(35.1599785, 126.8513072),
+        level: 6
+    };
+
+    var map = new kakao.maps.Map(mapContainer, mapOption);
+
+    var ps = new kakao.maps.services.Places(map);
+
+    var searchAgainButton = document.getElementById('searchAgainButton');
+    var searchCenterButton = document.getElementById('searchCenterButton');
+
+    // 반경 설정 (5km)
+    var radius = 5000; 
+
+    // 내 위치
+    var myLatitude, myLongitude;
+
+    // 내 위치 기준으로 관광명소 검색 버튼 클릭 이벤트 처리
+    searchAgainButton.addEventListener('click', function() {
+        // 내 위치를 얻어오기
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                myLatitude = position.coords.latitude;
+                myLongitude = position.coords.longitude;
+
+                // 중심 좌표를 내 위치로 변경하고 검색
+                map.setCenter(new kakao.maps.LatLng(myLatitude, myLongitude));
+                searchPlacesByCoordinates(myLatitude, myLongitude);
+            });
+        } else {
+            alert('Geolocation을 지원하지 않음');
+        }
+    });
+
+    // 지도 중심 검색 버튼 클릭 이벤트 처리
+    searchCenterButton.addEventListener('click', function() {
+        var centerCoords = map.getCenter();
+        var centerLatitude = centerCoords.getLat();
+        var centerLongitude = centerCoords.getLng();
+        
+        // 중심 좌표를 사용하여 다시 검색
+        searchPlacesByCoordinates(centerLatitude, centerLongitude);
+    });
+
+    // 초기 실행 시 내 위치로 검색
+    searchAgainButton.click();
+
+    function placesSearchCB(data, status, pagination) {
+        if (status === kakao.maps.services.Status.OK) {
+            displayPlaces(data);
+        }
+    }
+
+    function displayPlaces(places) {
+        var searchResults = document.getElementById('search_results');
+        searchResults.innerHTML = '';
+
+        // 관광명소를 거리 순으로 정렬
+        places.sort(function(a, b) {
+            var distanceA = getDistanceFromCenter(a.y, a.x);
+            var distanceB = getDistanceFromCenter(b.y, b.x);
+            return distanceA - distanceB;
+        });
+
+        for (var i = 0; i < places.length; i++) {
+            var place = places[i];
+            var distance = getDistanceFromCenter(place.y, place.x);
+
+            // 반경 내에 있는 관광명소만 표시
+            if (distance <= radius) {
+                var marker = addMarker(new kakao.maps.LatLng(place.y, place.x), place);
+                var item = createResultItem(place, i + 1); // 순번을 인자로 전달
+
+                searchResults.appendChild(item);
+
+                item.addEventListener('click', function () {
+                    var itemPlace = this.getAttribute('data-place');
+                    var latlng = itemPlace.split(',').map(Number);
+
+                    map.setCenter(new kakao.maps.LatLng(latlng[0], latlng[1]));
+                });
+            }
+        }
+    }
+
+    function addMarker(position, place) {
+        var marker = new kakao.maps.Marker({
+            map: map,
+            position: position
+        });
+
+        kakao.maps.event.addListener(marker, 'click', function () {
+            var content = '<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>';
+
+            if (place.title) {
+                content += '<div style="padding:5px;font-size:12px;">Title: ' + place.title + '</div>';
+            }
+
+            infowindow.setContent(content);
+            infowindow.open(map, marker);
+        });
+
+        return marker;
+    }
+
+    function createResultItem(place, sequence) {
+        var item = document.createElement('div');
+        item.className = 'result_item';
+        item.setAttribute('data-place', place.y + ',' + place.x);
+        item.innerHTML = sequence + '. ' + place.place_name;
+
+        return item;
+    }
+
+    // 중심 좌표를 사용하여 다시 검색하는 함수
+    function searchPlacesByCoordinates(latitude, longitude) {
+        // 중심 좌표로 검색
+        ps.categorySearch('AT4', function(data, status, pagination) {
+            if (status === kakao.maps.services.Status.OK) {
+                displayPlaces(data);
+            }
+        }, { location: new kakao.maps.LatLng(latitude, longitude) });
+    }
+
+    // 두 지점 간의 거리 계산 함수
+    function getDistanceFromCenter(latitude, longitude) {
+        var centerCoords = map.getCenter();
+        var centerLat = centerCoords.getLat();
+        var centerLng = centerCoords.getLng();
+
+        var radLat1 = (Math.PI / 180) * centerLat;
+        var radLat2 = (Math.PI / 180) * latitude;
+
+        var radLng1 = (Math.PI / 180) * centerLng;
+        var radLng2 = (Math.PI / 180) * longitude;
+
+        var theta = centerLng - longitude;
+
+        var radTheta = (Math.PI / 180) * theta;
+
+        var dist = Math.sin(radLat1) * Math.sin(radLat2) + Math.cos(radLat1) * Math.cos(radLat2) * Math.cos(radTheta);
+
+        dist = Math.acos(dist);
+
+        dist = dist * (180 / Math.PI);
+
+        dist = dist * 60 * 1.1515;
+
+        dist = dist * 1.609344 * 1000; // 단위를 미터로 변경
+
+        return dist;
+    }
+</script>
+</body>
+</html>
