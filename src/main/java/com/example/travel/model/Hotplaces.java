@@ -16,4 +16,4 @@ public class Hotplaces {
     String legaldong_nm;
     Double longitude;
     Double latitude;
-}
+} 

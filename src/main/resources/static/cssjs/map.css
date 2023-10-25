@@ -48,7 +48,7 @@ footer, header, hgroup, menu, nav, section {
 .overlaybox li:hover .down {background-position:0 -20px;} 
 .sidebar {
         position: fixed;
-        top: 0;
+        top: 0; 
         left: -300px; /* 왼쪽으로 숨겨둠 */
         width: 300px;
         height: 100%;

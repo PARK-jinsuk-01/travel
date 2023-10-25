@@ -48,5 +48,4 @@ public class MapController {
             return hotplaceRepository.findAll();
         }
     }
-
 }

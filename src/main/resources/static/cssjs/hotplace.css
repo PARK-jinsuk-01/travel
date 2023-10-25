@@ -52,7 +52,7 @@ footer, header, hgroup, menu, nav, section {
     background-color: #f9f9f9;
 	width: 300px;
 }
-
+ 
 .result_item:hover {
     background-color: #e0e0e0;
 }
