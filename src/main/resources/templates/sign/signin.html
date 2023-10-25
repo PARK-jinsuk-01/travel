@@ -17,8 +17,8 @@
             <div class="tab">
                 <ul>
                     <li>
-                        <a href="#">
-                            <button id="tabbt">Email 로그인</button>
+                        <a href="/signup">
+                            <button id="tabbt">회원가입</button>
                         </a>
                     </li>
                     <li>
@@ -129,6 +129,7 @@ const page = document.getElementById("page");
             errorMsg.innerText = data.errorMsg || 'Email과 Pw를 확인해주세요';
             pwError.innerText = '';
         }
+        
         return false;
     }
 </script>

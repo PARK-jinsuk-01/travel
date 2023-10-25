@@ -23,8 +23,10 @@
         <button type="button" id="saveButton">게시글 저장</button>
         <input type="hidden" id="id" th:if="${session.id != null}" th:value="${session.id}">
     </form>
+    <input id="page" type="hidden"  th:value="${page} != null ? ${page}:'' ">
 
     <script>
+        const page = document.getElementById("page");
         $(document).ready(function () {
             var plugins = [
                 "advlist", "autolink", "lists", "link", "image", "charmap", "print", "preview", "anchor",
@@ -102,6 +104,7 @@
                     body: formData
                 });
                 const res = await data.json();
+               
                 if (res.error) {
                     alert("저장 중 오류가 발생했습니다.");
                     console.error("오류 발생: " + res.error);
@@ -109,9 +112,14 @@
                     alert(res.msg)
 
                 }
-
+                // if (data.code === 200) {
+                //     window.location.href = "/"+page.value;
+                // } else if(data.code === 201){
+                //     window.location.href = "/"+page.value;
+                // }
             });
         });
+
     </script>
 </body>
 

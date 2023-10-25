@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/cssjs/boardDetail.css}" />
+    <title>BDetail</title>
+</head>
+
+<body>
+    <header class="gnbCommon" style="height: 90px;">
+        <div class="gnb">
+            <h1 class="logo">
+                <a href="/">
+                    <img src="/img/logo.png" alt="Travel">
+                </a>
+            </h1>
+        </div>
+        <div class="menu">
+            <div class="depth">
+                <div class="swiper-container">
+                    <ul class="swiper-wrapper">
+                        <li>
+                            <a href="">홈</a>
+                        </li>
+                        <li>
+                            <a href="">테마</a>
+                        </li>
+                        <li>
+                            <a href="">지역</a>
+                        </li>
+                        <li>
+                            <a href="">여행콕콕</a>
+                        </li>
+                        <li>
+                            <a href="">여행상품 홍보관</a>
+                        </li>
+                        <li>
+                            <a href="">여행정보</a>
+                        </li>
+                        <li>
+                            <a href="">여행지도</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="form">
+            <span class="input">
+                <input type="text" placeholder="어떤 여행?">
+                <a href="" class="search">검색</a>
+            </span>
+        </div>
+    </header>
+    <div id="content">
+        <div class="title1">
+            <div>
+                <h2 id="topTitle" name="title" th:text="${travelBoard.title}"></h2>
+            </div>
+            <div class="write_date">
+                <span name="boardDate" th:text="${#temporals.format(travelBoard.boardDate, 'yy년 mm월 dd일')}"></span>
+                <br>
+                <span name="name" th:text="${travelBoard.member.name}"></span>
+            </div>
+            <div class="post_area">
+                <button type="button" class="btn_good" onclick="setLike();">
+                    <span class="ico">좋아요</span>
+                    <span class="num" id="conLike">0</span>
+                </button>
+                <span class="num_view">
+                    <em class="tit">조회수</em>
+                    <span class="num" id="conRead">0</span>
+                </span>
+            </div>
+        </div>
+        <!-- <hr> -->
+        <div class="cont_detail">
+            <div class="content">
+                <p th:utext="${travelBoard.content}"></p>
+            </div>
+            <div class="tok">
+                <div class="tokwrap">
+                    <h3 class="tit">댓글
+                        <span></span>
+                    </h3>
+                    <div class="write">
+                        <div class="tokform"></div>
+                        <form name="tform" id="tform">
+                            <label class="blind" for="comment">로그인 후 소중한 댓글을 남기시오.</label>
+                            <span class="writeform" style="height: 80px;">
+                                <textarea name="" id="comment" cols="30" rows="10" placeholder="로그인 후 소중한 댓글을 남기시오."
+                                    style="height: 80px;"></textarea>
+                                </span>
+                                <div class="push">
+                                    <button class="tenter" type="button" onclick="">입력</button>
+                                </div>
+                            </form>
+                    </div>
+                    <div class="reply">
+                        <div class="list_reply">
+                            <ul>
+                                <li id="">
+                                    <div class="profile">
+                                        <div class="photo"></div>
+                                    </div>
+                                    <div class="txt">
+                                        <p>가나다라마바사아</p>
+                                        <div class="date">
+                                            <em class="name">동경민</em>
+                                            <span class="reply_date">23.10.25</span>
+                                        </div>
+                                    </div>
+                                    <div class="active">
+                                        <div>
+                                            <button type="button" class="btn1">
+                                                <div></div>
+                                                <span>0</span>
+                                            </button>
+                                            <button type="button" class="btn2">
+                                                <div></div>
+                                                <span>0</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="commentMore">
+                                <a href="" class="btn_more">댓글 더보기</a>
+                            </div>
+                            <div class="footer">
+                                <p>Kepco Boot Capm</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>

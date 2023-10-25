@@ -24,11 +24,11 @@ public class TravelPlan {
     @Lob
     String content;
 
-    LocalDateTime planData;
+    LocalDateTime planDate;
     
     @PrePersist
     public void prePersist() {
-        this.planData = LocalDateTime.now().truncatedTo(ChronoUnit.DAYS);
+        this.planDate = LocalDateTime.now().truncatedTo(ChronoUnit.DAYS);
     }
 
     @ManyToOne
