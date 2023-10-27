@@ -7,18 +7,40 @@
 </head>
 <body>
 <div id="map"></div>
-<div id="search_results"></div>
+<div id="searchContainer">
+    <div class="region">
+        <input type="text" id="searchInput" placeholder="지역 또는 명소 검색">
+        <button id="searchButton">검색</button>
+    </div>
+    <!-- 추가: 반경 설정을 위한 input -->
+    <div class="radius">
+        <div class="rad">
+        <input type="number" id="radiusInput" placeholder="반경 (km)">
+        <button id="setRadiusButton">반경 설정</button></div>
+    </div>
+</div>
+<span id="openNav" onclick="openNav()">&#9776; 관광지 목록 보기</span>
+<div id="sidebar">
+    <button class="close-button" id="closeButton"onclick="closeNav()">❌</button>
+<div id="search_results"></div></div>
 <button id="searchAgainButton">내 위치 기준 관광명소 검색</button>
 <br><br>
-<button id="searchCenterButton">지도 중심 검색</button>
+<button id="searchCenterButton">&#8635;&nbsp; 현 지도에서 검색</button>
+<button id="clearMarkersButton">
+        <!-- <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTddL1KozhpCIElPcitXnBFsQvCy4LcK75uAh4Ae2KRRQBsc8BoHtm2T3ERkC1gqiLSFAQ&usqp=CAU" alt="Travel"> -->
+    마커 초기화</button>
+
+
+
 <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=a679bbd2d4c0a6d9d0a6ecb0a24cef88&libraries=services"></script>
 <script>
     var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
+    var markers = [];
 
     var mapContainer = document.getElementById('map');
     var mapOption = {
         center: new kakao.maps.LatLng(35.1599785, 126.8513072),
-        level: 6
+        level: 7
     };
 
     var map = new kakao.maps.Map(mapContainer, mapOption);
@@ -27,22 +49,37 @@
 
     var searchAgainButton = document.getElementById('searchAgainButton');
     var searchCenterButton = document.getElementById('searchCenterButton');
+    var clearMarkersButton = document.getElementById('clearMarkersButton');
+    var searchInput = document.getElementById('searchInput');
+    var searchButton = document.getElementById('searchButton');
 
-    // 반경 설정 (5km)
-    var radius = 5000; 
+    // 추가: 반경 설정과 반경 설정 버튼
+    var radiusInput = document.getElementById('radiusInput');
+    var setRadiusButton = document.getElementById('setRadiusButton');
 
-    // 내 위치
+    // 추가: 정보 창 상태 추적 변수
+    var infoWindowOpen = false;
+
+    var radius = 5000;
     var myLatitude, myLongitude;
 
-    // 내 위치 기준으로 관광명소 검색 버튼 클릭 이벤트 처리
+    // 추가: 반경 설정 버튼 클릭 이벤트 리스너
+    setRadiusButton.addEventListener('click', function() {
+        // 입력된 반경 값을 가져와서 반경을 업데이트
+        var newRadius = parseInt(radiusInput.value);
+        if (!isNaN(newRadius)) {
+            radius = newRadius;
+            alert('반경이 ' + newRadius + ' km로 설정되었습니다.');
+        } else {
+            alert('올바른 반경 값을 입력하세요.');
+        }
+    });
+
     searchAgainButton.addEventListener('click', function() {
-        // 내 위치를 얻어오기
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
                 myLatitude = position.coords.latitude;
                 myLongitude = position.coords.longitude;
-
-                // 중심 좌표를 내 위치로 변경하고 검색
                 map.setCenter(new kakao.maps.LatLng(myLatitude, myLongitude));
                 searchPlacesByCoordinates(myLatitude, myLongitude);
             });
@@ -51,17 +88,27 @@
         }
     });
 
-    // 지도 중심 검색 버튼 클릭 이벤트 처리
     searchCenterButton.addEventListener('click', function() {
         var centerCoords = map.getCenter();
         var centerLatitude = centerCoords.getLat();
         var centerLongitude = centerCoords.getLng();
-        
-        // 중심 좌표를 사용하여 다시 검색
         searchPlacesByCoordinates(centerLatitude, centerLongitude);
     });
 
-    // 초기 실행 시 내 위치로 검색
+    clearMarkersButton.addEventListener('click', function() {
+        removeMarkers();
+        // 추가: 초기화 버튼 클릭 시 정보 창 닫음
+        if (infoWindowOpen) {
+            infowindow.close();
+            infoWindowOpen = false;
+        }
+    });
+
+    searchButton.addEventListener('click', function() {
+        var keyword = searchInput.value;
+        searchPlacesByKeyword(keyword);
+    });
+
     searchAgainButton.click();
 
     function placesSearchCB(data, status, pagination) {
@@ -73,29 +120,35 @@
     function displayPlaces(places) {
         var searchResults = document.getElementById('search_results');
         searchResults.innerHTML = '';
-
-        // 관광명소를 거리 순으로 정렬
         places.sort(function(a, b) {
             var distanceA = getDistanceFromCenter(a.y, a.x);
             var distanceB = getDistanceFromCenter(b.y, b.x);
             return distanceA - distanceB;
         });
-
         for (var i = 0; i < places.length; i++) {
             var place = places[i];
             var distance = getDistanceFromCenter(place.y, place.x);
-
-            // 반경 내에 있는 관광명소만 표시
             if (distance <= radius) {
                 var marker = addMarker(new kakao.maps.LatLng(place.y, place.x), place);
-                var item = createResultItem(place, i + 1); // 순번을 인자로 전달
-
+                var item = createResultItem(place, i + 1);
                 searchResults.appendChild(item);
-
+                // 아래 클릭 이벤트 리스너로 정보 창 열고 닫음 구현
                 item.addEventListener('click', function () {
                     var itemPlace = this.getAttribute('data-place');
                     var latlng = itemPlace.split(',').map(Number);
 
+                    if (infoWindowOpen) {
+                        infowindow.close();
+                        infoWindowOpen = false;
+                    } else {
+                        var content = '<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>';
+                        if (place.title) {
+                            content += '<div style="padding:5px;font-size:12px;">Title: ' + place.title + '</div>';
+                        }
+                        infowindow.setContent(content);
+                        infowindow.open(map, marker);
+                        infoWindowOpen = true;
+                    }
                     map.setCenter(new kakao.maps.LatLng(latlng[0], latlng[1]));
                 });
             }
@@ -107,18 +160,21 @@
             map: map,
             position: position
         });
-
         kakao.maps.event.addListener(marker, 'click', function () {
-            var content = '<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>';
-
-            if (place.title) {
-                content += '<div style="padding:5px;font-size:12px;">Title: ' + place.title + '</div>';
+            if (infoWindowOpen) {
+                infowindow.close();
+                infoWindowOpen = false;
+            } else {
+                var content = '<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>';
+                if (place.title) {
+                    content += '<div style="padding:5px;font-size:12px;">Title: ' + place.title + '</div>';
+                }
+                infowindow.setContent(content);
+                infowindow.open(map, marker);
+                infoWindowOpen = true;
             }
-
-            infowindow.setContent(content);
-            infowindow.open(map, marker);
         });
-
+        markers.push(marker);
         return marker;
     }
 
@@ -127,13 +183,11 @@
         item.className = 'result_item';
         item.setAttribute('data-place', place.y + ',' + place.x);
         item.innerHTML = sequence + '. ' + place.place_name;
-
         return item;
     }
 
-    // 중심 좌표를 사용하여 다시 검색하는 함수
     function searchPlacesByCoordinates(latitude, longitude) {
-        // 중심 좌표로 검색
+        removeMarkers();
         ps.categorySearch('AT4', function(data, status, pagination) {
             if (status === kakao.maps.services.Status.OK) {
                 displayPlaces(data);
@@ -141,34 +195,50 @@
         }, { location: new kakao.maps.LatLng(latitude, longitude) });
     }
 
-    // 두 지점 간의 거리 계산 함수
+    function searchPlacesByKeyword(keyword) {
+        removeMarkers();
+        ps.keywordSearch(keyword, function(data, status, pagination) {
+            if (status === kakao.maps.services.Status.OK) {
+                displayPlaces(data);
+            }
+        });
+    }
+
     function getDistanceFromCenter(latitude, longitude) {
         var centerCoords = map.getCenter();
         var centerLat = centerCoords.getLat();
         var centerLng = centerCoords.getLng();
-
         var radLat1 = (Math.PI / 180) * centerLat;
         var radLat2 = (Math.PI / 180) * latitude;
-
         var radLng1 = (Math.PI / 180) * centerLng;
         var radLng2 = (Math.PI / 180) * longitude;
-
         var theta = centerLng - longitude;
-
         var radTheta = (Math.PI / 180) * theta;
-
         var dist = Math.sin(radLat1) * Math.sin(radLat2) + Math.cos(radLat1) * Math.cos(radLat2) * Math.cos(radTheta);
-
         dist = Math.acos(dist);
-
-        dist = dist * (180 / Math.PI);
-
-        dist = dist * 60 * 1.1515;
-
-        dist = dist * 1.609344 * 1000; // 단위를 미터로 변경
-
+        dist = dist * (180 / Math.PI)* 60 * 1.1515* 1.609344 ;
+        // dist = dist ;
+        // dist = dist ;
         return dist;
     }
+
+    function removeMarkers() {
+        for (var i = 0; i < markers.length; i++) {
+            markers[i].setMap(null);
+        }
+        markers = [];
+    }
+
+    function openNav() {
+        document.getElementById("sidebar").style.width = "250px";
+        document.getElementById("main").classList.add("pushed");
+    }
+
+    function closeNav() {
+        document.getElementById("sidebar").style.width = "0";
+        document.getElementById("main").classList.remove("pushed");
+    }
+
 </script>
 </body>
 </html>

@@ -26,12 +26,12 @@ footer, header, hgroup, menu, nav, section {
 
 #map{
     position: absolute;
-	margin-top: 100px;
+	margin-top: 120px;
     /* width: max-content; */
-    width: 1400px;
+    width: 1500px;
     height: 600px;
 	left: 350px;
-
+	
 }
 /* #regionSelect{
 	right: 0;
@@ -39,18 +39,49 @@ footer, header, hgroup, menu, nav, section {
 	position: absolute;
 } */
 /* hotplace.css */
+#searchInput{
+	/* float: left; */
+	position: relative;
+	right: -4px;
+	top: -4px;
+	margin-right: 0px;
+	width: 223px;
+    height: 18px;
+    padding: 26px 19px 10px;
+    border: 0 none;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 19px;
+    background-color: transparent;
+    /* text-decoration: underline ; */
+    outline: 0;
+}
 
 #search_results {
     margin-top: 10px;
+	height: max-content;
 }
 
 .result_item {
     cursor: pointer;
     padding: 10px;
     border: 1px solid #ccc;
-    margin-bottom: 10px;
+    margin-bottom: 0px;
     background-color: #f9f9f9;
 	width: 300px;
+}
+#searchButton{
+	position: relative;
+	top: -10px;
+	border: none;
+	width: 50px;
+	height: 30px;
+	border-radius: 20px;
+	cursor: pointer;
+	background-color: rgb(157, 157, 243);
+}
+#searchButton:hover{
+	background-color: rgb(138, 138, 161);
 }
  
 .result_item:hover {
@@ -62,6 +93,87 @@ footer, header, hgroup, menu, nav, section {
     height: 400px;
     margin-top: 20px;
 } */
+#searchContainer{
+	position: relative;
+	margin-top: 20px;
+}
+.region{
+	position: relative;
+	right: 171px;
+	left: 1528px;
+	top: 60px;
+	margin-top: 22px;
+	margin-right: 305px;
+	width: 320px;
+	height: 48px;
+	border: 0px solid #888;
+	border-bottom: 1px solid;
+}
+
+.radius{
+	position: relative;
+	margin-left: 1528px;
+	margin-top: 700px;
+	bottom: 15px;
+	/* margin-bottom: 200px; */
+}
+#radiusInput{
+	width: 230px;
+	
+}
+.rad{
+    bottom: 100px;
+}
+#searchAgainButton{
+	position: relative;
+	/* top: -40px; */
+	bottom: 40px;
+	left: 80px;
+	margin-left: 86px;
+	margin-bottom: 20px;
+}
+#searchCenterButton {
+	
+	position: relative;
+	/* right: 500px; */
+	/* top: 520px; */
+	left: 980px;
+	bottom: 200px;
+	background-image: none;
+	border-radius: 20px;
+	border: 1px none;
+	height: 45px;
+	width: 200px;
+	padding: 0px 18px;
+	box-shadow: rgb(0, 0, 0, 0.4) 0px 4px 10px 0px;
+	cursor: pointer;
+	background-color: rgb(4, 117, 244);
+	color: #ffffff;
+	font-weight: bold;
+	font-size: 18px;
+	padding: 0px 18px;
+}
+#clearMarkersButton{
+	position: relative;
+	background-color: none;
+	/* background-image: url(https://cdn-icons-png.flaticon.com/512/60/60686.png); */
+	left: 200px;
+	
+	margin-top: 143px;
+	margin-left: 150px;
+	bottom: 248px;
+}
+#search_results {
+	/* display: none; */
+	/* position: fixed; */
+	top: 0;
+	left: -300px; /* 초기에는 왼쪽에서 보이지 않도록 설정 */
+	width: 300px;
+	height: 100%;
+	background-color: #e0e9ec;
+	box-shadow: 2px 0 2px rgba(0, 0, 0, 0.1);
+	transition: left 0.3s ease-in-out; /* 왼쪽으로 나타나고 사라지도록 애니메이션 적용 */
+}
 
 .placeinfo_wrap {
     border: 1px solid #ccc;
@@ -93,4 +205,74 @@ footer, header, hgroup, menu, nav, section {
     color: #888;
     font-size: 20px;
     font-weight: bold;
+}
+
+/* 사이드바 스타일 */
+#sidebar {
+	height: 100%;
+	width: 0;
+	position: fixed;
+	top: 0;
+	left: 0;
+	background-color: #7acfcc;
+	overflow-x: hidden;
+	transition: 0.5s;
+	padding-top: 60px;
+	color: rgb(64, 68, 67);
+}
+
+/* 사이드바 메뉴 아이템 스타일 */
+#sidebar a {
+	padding: 8px 8px 8px 32px;
+	text-decoration: none;
+	font-size: 20px;
+	color: #818181;
+	display: block;
+	transition: 0.3s;
+}
+
+/* 사이드바 메뉴 아이템 스타일 (마우스 호버 시) */
+#sidebar a:hover {
+	color: #f1f1f1;
+}
+
+/* 사이드바 닫기 버튼 스타일 */
+#sidebar .closebtn {
+	position: absolute;
+	top: 0;
+	right: 25px;
+	font-size: 36px;
+}
+
+/* 컨텐츠 영역 스타일 */
+#main {
+	transition: margin-left .5s;
+	padding: 16px;
+}
+#main.pushed {
+	margin-left: 300px; /* 가로 너비를 더 넓게 조정 */
+}
+/* "메뉴 열기" 버튼 스타일 */
+#openNav {
+	position: relative;
+	font-size: 20px;
+	cursor: pointer;
+	font-weight: 550;
+	left: 10px;
+	bottom: 647px;
+}
+
+/* 사이드바가 열렸을 때의 컨텐츠 마진 스타일 */
+#main.pushed {
+	margin-left: 250px;
+}
+.close-button {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	font-size: 20px;
+	cursor: pointer;
+	color: #818181;
+	border: hidden;
+	background-color: #7acfcc;
 }
