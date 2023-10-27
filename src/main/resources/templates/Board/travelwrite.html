@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko_KR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Write Travel</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.tiny.cloud/1/3k8g5gbfihgqku2qwn22ivwfwzgmsh1f1bozrx1xsgiqn43z/tinymce/5/tinymce.min.js"
+        referrerpolicy="origin"></script>
+</head>
+
+<body>
+    <h1>Travel</h1>
+    <form action="/write" method="post" id="writeForm">
+        <select name="category">
+            <option value="plan">여행계획</option>
+            <option value="board">여행일지</option>
+        </select>
+        <input type="text" name="title" id="title" placeholder="제목">
+        <textarea id="editor" name="content"></textarea>
+        <button type="button" id="saveButton">게시글 저장</button>
+        <input type="hidden" id="id" th:if="${session.id != null}" th:value="${session.id}">
+    </form>
+    <input id="page" type="hidden" th:value="${page} != null ? ${page}:'' ">
+
+    <script>
+        const page = document.getElementById("page");
+        $(document).ready(function () {
+            var plugins = [
+                "advlist", "autolink", "lists", "link", "image", "charmap", "print", "preview", "anchor",
+                "searchreplace", "visualblocks", "code", "fullscreen", "insertdatetime", "media", "table",
+                "paste", "code", "help", "wordcount", "save"
+            ];
+            var edit_toolbar = 'formatselect fontselect fontsizeselect |'
+                + ' forecolor backcolor |'
+                + ' bold italic underline strikethrough |'
+                + ' alignjustify alignleft aligncenter alignright |'
+                + ' bullist numlist |'
+                + ' table tabledelete |'
+                + ' link image';
+
+            tinymce.init({
+                language: "ko_KR",
+                selector: '#editor',
+                height: 500,
+                menubar: false,
+                plugins: plugins,
+                toolbar: edit_toolbar,
+
+                image_title: true,
+                automatic_uploads: true,
+
+                file_picker_types: 'image',
+
+                file_picker_callback: function (cb, value, meta) {
+                    var input = document.createElement('input');
+                    input.setAttribute('type', 'file');
+                    input.setAttribute('accept', 'image/*');
+
+                    input.onchange = function () {
+                        var file = this.files[0];
+
+                        var reader = new FileReader();
+                        reader.onload = function () {
+                            var id = 'blobid' + (new Date()).getTime();
+                            var blobCache = tinymce.activeEditor.editorUpload.blobCache;
+                            var base64 = reader.result.split(',')[1];
+                            var blobInfo = blobCache.create(id, file, base64);
+                            blobCache.add(blobInfo);
+
+                            cb(blobInfo.blobUri(), { title: file.name });
+                        };
+                        reader.readAsDataURL(file);
+                    };
+                    input.click();
+                },
+
+                content_style: 'body { font-family: Helvetica, Arial, sans-serif; font-size: 14px }'
+            });
+
+            $("#saveButton").on("click", async function () {
+                // 게시글 내용 가져오기
+                var content = tinymce.activeEditor.getContent();
+                var category = $("[name=category]").val();
+                var title = $("#title").val();
+                var id = $("#id").val();
+                // var id = '1';
+                console.log(category);
+                console.log(content);
+                console.log(title);
+                console.log(id);
+
+                // FormData 객체 생성
+                var formData = new FormData();
+                formData.append("content", content);
+                formData.append("category", category);
+                formData.append("title", title);
+                formData.append("id", id);
+
+                const data = await fetch('/write', {
+                    method: 'post',
+                    body: formData
+                });
+                const res = await data.json();
+
+                if (res.error) {
+                    alert("저장 중 오류가 발생했습니다.");
+                    console.error("오류 발생: " + res.error);
+                } else {
+                    alert(res.msg)
+                    if (category == "plan") {
+                        window.location.href = "/plan"
+                    } else {
+                        window.location.href = "/board"
+                    }
+
+                }
+            });
+        });
+
+    </script>
+</body>
+
+</html>

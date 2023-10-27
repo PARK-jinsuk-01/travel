@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/cssjs/planDetail.css}" />
+    <title>PDetail</title>
+</head>
+
+<body>
+    <header class="gnbCommon" style="height: 90px;">
+        <div class="gnb">
+            <h1 class="logo">
+                <a href="/">
+                    <img src="/img/logo.png" alt="Travel">
+                </a>
+            </h1>
+        </div>
+        <div class="menu">
+            <div class="depth">
+                <div class="swiper-container">
+                    <ul class="swiper-wrapper">
+                        <li>
+                            <a href="">홈</a>
+                        </li>
+                        <li>
+                            <a href="">테마</a>
+                        </li>
+                        <li>
+                            <a href="">지역</a>
+                        </li>
+                        <li>
+                            <a href="">여행콕콕</a>
+                        </li>
+                        <li>
+                            <a href="">여행상품 홍보관</a>
+                        </li>
+                        <li>
+                            <a href="">여행정보</a>
+                        </li>
+                        <li>
+                            <a href="">여행지도</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="form">
+            <span class="input">
+                <input type="text" placeholder="어떤 여행?">
+                <a href="" class="search">검색</a>
+            </span>
+        </div>
+    </header>
+    <div id="content">
+        <div class="title1">
+            <div>
+                <h2 id="topTitle" name="title" th:text="${travelPlan.title}"></h2>
+            </div>
+            <div class="write_date">
+                <span name="planDate" th:text="${#temporals.format(travelPlan.planDate, 'yy년 mm월 dd일')}"></span>
+                <br>
+                <span name="name" th:text="${travelPlan.member.name}"></span>
+            </div>
+            <div class="post_area">
+                <button type="button" class="btn_good" id="likeButton">
+                    <span class="ico">좋아요</span>
+                    <span class="num" id="conLike"></span>
+                </button>
+                <span class="num_view">
+                    <em class="tit">조회수</em>
+                    <span class="num" id="conRead">[[${#lists.size(travelPlan.views)}]]</span>
+                </span>
+            </div>
+        </div>
+        <!-- <hr> -->
+        <div class="cont_detail">
+            <div class="content">
+                <p th:utext="${travelPlan.content}"></p>
+            </div>
+            <div class="tok">
+                <div class="tokwrap">
+                    <h3 class="tit">댓글
+                        <span></span>
+                    </h3>
+                    <div class="write">
+                        <div class="tokform"></div>
+                        <form name="tform" id="tform">
+                            <label class="blind" for="comment">로그인 후 소중한 댓글을 남기시오.</label>
+                            <span class="writeform" style="height: 80px;">
+                                <textarea name="" id="comment" cols="30" rows="10" placeholder="로그인 후 소중한 댓글을 남기시오."
+                                    style="height: 80px;"></textarea>
+                            </span>
+                            <div class="push">
+                                <button class="tenter" type="button" onclick="">입력</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="reply">
+                        <div class="list_reply">
+                            <ul>
+                                <li id="">
+                                    <div class="profile">
+                                        <div class="photo"></div>
+                                    </div>
+                                    <div class="txt">
+                                        <p>가나다라마바사아</p>
+                                        <div class="date">
+                                            <em class="name">동경민</em>
+                                            <span class="reply_date">23.10.25</span>
+                                        </div>
+                                    </div>
+                                    <div class="active">
+                                        <div>
+                                            <button type="button" class="btn1">
+                                                <div></div>
+                                                <span>0</span>
+                                            </button>
+                                            <button type="button" class="btn2">
+                                                <div></div>
+                                                <span>0</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="commentMore">
+                                <a href="" class="btn_more">댓글 더보기</a>
+                            </div>
+                            <div class="footer">
+                                <p>Kepco Boot Capm</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" id="memberid" th:if="${session.id != null}" th:value="${session.id}">
+        <input type="hidden" id="planid" th:if="${travelPlan.id != null}" th:value="${travelPlan.id}">
+
+    </div>
+</body>
+
+<script>
+    var memberId = document.getElementById("memberid");
+    var planid = document.getElementById("planid");
+    var planId = planid.value;
+    var likeButton = document.getElementById("likeButton");
+    const num = document.querySelector('#conLike');
+
+    var param = { memberId: memberId.value, planId: planId };
+
+    async function checkLike() {
+        try {
+            const response = await fetch('/pcheckLike', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(param)
+            });
+
+            if (response.ok) {
+                // HTTP 상태코드 200 성공
+                const data = await response.json();
+                console.log(data);
+                if (data.status) {
+                    //좋아요 활성화 값
+                    likeButton.classList.add('active');
+                } else {
+                    //좋아요 비활성화 값
+                    likeButton.classList.remove('active');
+                }
+                num.innerText = data.like;
+            } else {
+                console.error('Error:', response.status, response.statusText);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    // 초기 로딩 시 좋아요 여부 확인
+    checkLike();
+    const conLike = document.getElementById("conLike");
+    likeButton.addEventListener("click", async function () {
+        try {
+            const response = await fetch('/pbtnlike', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(param)
+
+            });
+            
+            if (response.ok) {
+                const data = await response.json();
+                alert(data.msg);
+                if(data.result) {
+                    checkLike();
+                }
+            } else {
+                console.error('Error:', response.status, response.statusText);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    });
+
+</script>
+
+</html>

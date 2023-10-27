@@ -240,14 +240,34 @@ a {
 .tab .selected2 a:hover {
     color: #07f;
 }
-
+.write {
+    min-width: 408px;
+    width: 65%;
+    padding: 0px;
+    top: 161px;
+    left: 0;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+.write button {
+    height: auto;
+    width: 70px;
+    background: black;
+    border: 1px solid black;
+    color: white;
+    font-size: large;
+    text-wrap: nowrap;
+    border-radius: 32%;
+}
 .sort {
     top: 161px;
     left: 0;
     display: flex;
     min-width: 408px;
     width: 65%;
-    height: 50px;
+    height: 35px;
     padding: 0px;
     justify-content: end;
     align-items: center;
@@ -275,12 +295,14 @@ a {
     margin: 0 0px 72px 0;
     overflow: hidden;
     transition: transform 0.3s;
+    padding-bottom: 15px;
 }
 .travelcard .img {
     height: 260px;
     width: 100%;
     overflow: hidden;
     display: block;
+    
 }
 .travelcard img {
     height: 100%;
@@ -291,6 +313,33 @@ a {
 .travelcard img:hover {
     transform: scale(1.1);
 }
+.detail {
+    margin-top: 13px;
+    width: 80%;
+    margin: 0 auto;
+}
+.tandd {
+    width: 100%;
+    border-bottom: 1px solid #f2f3f5;
+    padding-bottom: 13px;
+
+}
+.detail .title {
+    word-wrap: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 1.2rem;
+    font-weight: bold;
+
+}
+/* .title, .name, .boardDate, .name {
+    display: block;
+    width: 350px;
+    margin: 0 auto;
+    overflow: hidden;
+} */
+
+
 
 .footer {
     position: absolute;

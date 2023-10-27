@@ -1,0 +1,485 @@
+a, abbr, acronym, address, applet, article, aside, audio, b, blockquote, big, body, center, canvas, caption, cite, code, command, datalist, dd, del, details, dfn, dl, div, dt, em, embed, fieldset, figcaption, figure, font, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, ins, input, select, textarea, button, kbd, keygen, label, legend, li, meter, nav, menu, object, ol, output, p, pre, progress, q, s, samp, section, small, span, source, strike, strong, sub, sup, table, tbody, tfoot, thead, th, tr, colgroup, col, tt, u, ul, var {
+    padding: 0;
+    margin: 0;
+}
+
+html {
+    min-width: 320px;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-width: 320px;
+    height: 100%;
+    background: #fff;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    font: 13px;
+    color: black;
+}
+header {
+    display: block;
+}
+
+.gnbCommon {
+    position: relative;
+    width: 100%;
+    top: 0;
+    z-index: 112;
+    left: 0;
+    box-shadow: 0px 0px 10px 0px rgba(51, 51, 51, 0.2);
+}
+
+.gnbCommon .gnb {
+    max-width: 1920px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 120;
+}
+div {
+    box-sizing: border-box;
+    display: block;
+}
+
+.gnbCommon .logo {
+    position: absolute;
+    left: 60px;
+    top: 28px;
+}
+.gnbCommon .logo a {
+    display: inline-block;
+    width: 207px;
+    height: 36px;
+}
+h1 {
+    display: block;
+    font-size: 1em;
+    font-weight: bold;
+    display: block;
+    /* overflow: hidden; */
+}
+.gnbCommon .logo a img {
+    display: inline-block;
+    overflow: hidden;
+}
+
+.logo img{
+    height: 100%;
+    width: 100%;
+}
+
+.gnbCommon .menu {
+    margin: 0 25.5% 0 18%;
+    /* background-color: aqua; */
+}
+.gnbCommon .menu .swiper-container {
+    overflow: inherit;
+}
+.swiper-container {
+    display: flex;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+    list-style: none;
+    padding: 0;
+    z-index: 1;
+}
+.gnbCommon .menu ul {
+    justify-content: center;
+}
+.gnbCommon .menu ul > li {
+    width: auto;
+    margin: 0 2.5%;
+    height: 90px;
+    line-height: 90px;
+    flex-shrink: 0;
+    position: relative;
+    list-style: none;
+    display: list-item;
+}
+.gnbCommon .menu ul > li> a{
+    text-decoration: none;
+    display: block;
+    font-size: 20px;
+    letter-spacing: -1px;
+    color: black;
+    position: relative;
+    text-align: center;
+    cursor: pointer;
+
+}
+.swiper-wrapper {
+    transition: translate3d(0,0,0);
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    display: flex;
+    box-sizing: content-box;
+}
+.gnbCommon .form{
+    position: absolute;
+    right: 60px;
+    top: 20px;
+    display: flex;
+}
+.gnbCommon .input {
+    width: 292px;
+    position: relative;
+    height: 42px;
+    padding-right: 30px;
+    box-sizing: border-box;
+    border-bottom: 1px solid black; 
+}
+.gnbCommon .input input {
+    width: 100%;
+    height: 40px;
+    box-sizing: border-box;
+    font-size: 16px;
+    border: 0;
+    padding: 0 0 0 10px;
+    font-weight: 400;
+    color: black;
+    background: 0;
+}
+.gnbCommon .input input::placeholder {
+    color: #848484;
+    font-weight: 300;
+}
+input[type=text] {
+    padding: 0 5px;
+    border-radius: 0;
+}
+.search {
+    display: inline-block;
+    position: absolute;
+    right: 0;
+    top: 10px;
+    text-indent: -9999px;
+    width: 24px;
+    height: 24px;
+    background: url(https://korean.visitkorea.or.kr/resources/images/common/btn_header_search.png);
+}
+
+#content {
+    width: 980px;
+    margin: 0 auto;
+    padding: 130px 20px 27px 20px;
+}
+
+.title1 {
+    text-align: center;
+    position: relative;
+}
+
+.title1 h2{
+    font-size: 36px;
+    padding: 6px 0 0;
+    text-align: center;
+    margin: 0;
+    overflow: hidden;
+    font-weight: 800;
+    color: black;
+    letter-spacing: -1px;
+    word-break: keep-all;
+    display: block;
+    font-weight: bold;
+}
+.write_date {
+    width: 100%;
+    text-align: end;
+    margin-top: 100px;
+}
+.post_area {
+    position: relative;
+    top: 0;
+    margin: 35px 0 18px;
+    right: 0;
+}
+.title1 .post_area >button {
+    float: left;
+}
+.post_area .btn_good {
+    padding: 0 21px 0 0;
+}
+.post_area button {
+    height: 22px;
+    overflow: hidden;
+}
+button {
+    font-size: 1em;
+    border: 0 none;
+    background-color: transparent;
+    cursor: pointer;
+}
+.post_area .btn_good .ico {
+    width: 21px;
+    height: 19px;
+    background: url(https://korean.visitkorea.or.kr/resources/images/sub/ico_post01.png);
+    color: #666;
+    display: inline-block;
+    text-indent: -9999px;
+    vertical-align: middle;
+}
+
+.post_area .btn_good.active .ico {
+    background: url(https://korean.visitkorea.or.kr/resources/images/sub/ico_post01_on.png);
+}
+
+.post_area .num {
+    vertical-align: middle;
+    display: inline-block;
+    margin-left: 8px;
+    color: #666;
+    font-size: 15px;
+    font-weight: 300;
+}
+.post_area .num_view{
+    float: left;
+}
+.post_area .num_view .tit {
+    vertical-align: middle;
+    display: inline-block;
+    text-indent: -9999px;
+    font-size: 0;
+    width: 24px;
+    height: 18px;
+    background: url(https://korean.visitkorea.or.kr/resources/images/sub/ico_post07.png);
+}
+.cont_detail {
+    width: 100%;
+    height: 100%;
+}
+.content {
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+    padding-top: 50px;
+    padding-left: 2px;
+    
+}
+
+/* 톡 */
+.tokwrap .tit {
+    float: none;
+    padding: 4px 0px 12px 0;
+    margin: 40px 0 0;
+    font-size: 24px;
+    font-weight: 800;
+    background: none;
+    letter-spacing: -1px;
+    font-size: 24px;
+    display: block;
+}
+.tit span {
+    color: #0a97cd;
+    font-weight: 400;
+    padding-left: 5px;
+}
+.tokwrap .write {
+    height: 150px;
+    margin: 0;
+    padding: 14px 0;
+    position: relative;
+    background: #f7f7f7;
+    border: 1px solid #e5e5e5;
+}
+
+.tokwrap .write .tokform {
+    float: none;
+    margin: 0 20px;
+    display: block;
+}
+.blind {
+    overflow: hidden;
+    position: absolute;
+    top: auto;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    text-indent: -9999px;
+}
+label{
+    display: inline-block;
+    vertical-align: middle;
+}
+.writeform {
+    display: block;
+    position: relative;
+}
+.write #tform textarea{
+    width: 100%;
+    float: none;
+    padding: 15px 20px 15px 20px;
+    font-size: 16px;
+    box-sizing: border-box;
+    line-height: 20px;
+    border: 1px solid #e5e5e5;
+    word-break: keep-all;
+    border: 1px solid  black;
+}
+.write .push {
+    text-align: right;
+    padding: 10px 0 0;
+}
+.write .tenter {
+    position: relative;
+    display: inline-block;
+    width: 73px;
+    height: 40px;
+    text-align: center;
+    vertical-align: middle;
+}
+textarea {
+    color: #535455;
+    resize: none;
+}
+.reply {
+    min-height: auto;
+    position: relative;
+}
+.reply .list_reply {
+    width: 100%;
+}
+ul , li {
+    list-style: none;
+}
+.reply .list_reply >ul > li {
+    position: relative;
+    width: 100%;
+    padding: 20px 10px;
+    border-bottom: 1px solid #e6e6e6;
+    box-sizing: border-box;
+}
+.list_reply .profile {
+    position: relative;
+    float: left;
+    width: 50px;
+    height: 50px;
+}
+.list_reply .profile .photo {
+    width: 50px;
+    height: 50px;
+    background: url(https://korean.visitkorea.or.kr/resources/images/sub/ico_profile.png) 0 0 no-repeat;
+    border-radius: 100%;
+    text-indent: -9999px;
+    background-position: 50% 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.list_reply .txt {
+    width: 830px;
+    float: left;
+    padding-left: 20px;
+}
+.list_reply .txt p {
+    padding-bottom: 5px;
+    font-size: 16px;
+    color: #333;
+    word-break: break-all;
+    padding-right: 23px;
+}
+.list_reply .txt .date {
+    color: #333;
+    font-size: 14px;
+}
+.list_reply .txt .name {
+    display: inline-block;
+    vertical-align: top;
+    line-height: 20px;
+    padding-right: 10px;
+    margin-right: 7px;
+    color: #333;
+}
+em {
+    font-style: normal;
+    font-weight: normal;
+}
+.list_reply .txt span {
+    display: inline-block;
+    vertical-align: top;
+    line-height: 20px;
+    color: #707070;
+}
+.active {
+    display: block;
+    clear: both;
+    padding: 17px 0 0 70px;
+}
+.active button {
+    width: 69px;
+    height: 28px;
+    padding: 0.5rem 1rem;
+    display: flex;
+    flex-direction: row;
+    line-height: 26px; 
+    border: 1px solid #e5e5e5;
+    color: #0a97cd;
+    font-size: 15px;
+    text-align: center;
+    background: #fff;
+    vertical-align: middle;
+    align-items: center;
+}
+.active button + button {
+    margin-left: 2px;
+}
+.active button + span {
+    display: inline-block;
+    margin-left: 4px;
+}
+.active .btn1 {
+    padding-top: 5px;
+}
+.active .btn1 > div {
+
+    width: 17px;
+    height: 15px;
+    background: url(https://korean.visitkorea.or.kr/resources/images/sub/btn_reply_01.png)no-repeat;
+}
+
+.active button span {
+    display: inline-block;
+    margin-left: 4px;
+
+}
+
+.active .btn2 > div {
+    width: 20px;
+    height: 20px;
+    background: url(https://korean.visitkorea.or.kr/resources/images/sub/btn_reply_02.png)no-repeat;
+}
+.active div {
+    display: flex;
+}
+
+.commentMore {
+    text-align: center;
+}
+
+.btn_more {
+    border: 0;
+    margin-top: 5px;
+    display: inline-block;
+    width: 150px;
+    padding: 10px 10px;
+    text-align: center;
+    font-size: 16px;
+    color: #000;
+    text-decoration: none;
+}
+.footer {
+    position: relative;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    padding-top: 31px;
+    color: #9fa1a7;
+    font-size: 11px;
+    border-top: 1px solid #e5e8eb;
+    text-align: center;
+}
