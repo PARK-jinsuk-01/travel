@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.example.travel.model.Member;
 import com.example.travel.model.TravelBoard;
 import com.example.travel.model.TravelPlan;
-import com.example.travel.repository.FileAtchRepository;
 import com.example.travel.repository.MemberRepository;
 import com.example.travel.repository.TravelBoardRepository;
 import com.example.travel.repository.TravelPlanRepository;
@@ -36,9 +35,6 @@ public class WriteConroller {
 
     @Autowired
     TravelPlanRepository travelPlanRepository;
-
-    @Autowired
-    FileAtchRepository fileAtchRepository;
 
     @GetMapping("/write")
     public String write() {

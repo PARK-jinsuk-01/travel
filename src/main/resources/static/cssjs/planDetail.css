@@ -203,7 +203,7 @@ input[type=text] {
     float: left;
 }
 .post_area .btn_good {
-    padding: 0 22px 0 0;
+    padding: 0 21px 0 0;
 }
 .post_area button {
     height: 22px;
@@ -224,6 +224,11 @@ button {
     text-indent: -9999px;
     vertical-align: middle;
 }
+
+.post_area .btn_good.active .ico {
+    background: url(https://korean.visitkorea.or.kr/resources/images/sub/ico_post01_on.png);
+}
+
 .post_area .num {
     vertical-align: middle;
     display: inline-block;

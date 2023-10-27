@@ -224,6 +224,9 @@ button {
     text-indent: -9999px;
     vertical-align: middle;
 }
+.post_area .btn_good.active .ico {
+    background: url(https://korean.visitkorea.or.kr/resources/images/sub/ico_post01_on.png);
+}
 .post_area .num {
     vertical-align: middle;
     display: inline-block;

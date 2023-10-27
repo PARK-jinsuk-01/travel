@@ -13,7 +13,7 @@
 
 <body>
     <h1>Travel</h1>
-    <form action="/write" method="post"  id="writeForm">
+    <form action="/write" method="post" id="writeForm">
         <select name="category">
             <option value="plan">여행계획</option>
             <option value="board">여행일지</option>
@@ -23,7 +23,7 @@
         <button type="button" id="saveButton">게시글 저장</button>
         <input type="hidden" id="id" th:if="${session.id != null}" th:value="${session.id}">
     </form>
-    <input id="page" type="hidden"  th:value="${page} != null ? ${page}:'' ">
+    <input id="page" type="hidden" th:value="${page} != null ? ${page}:'' ">
 
     <script>
         const page = document.getElementById("page");
@@ -104,19 +104,19 @@
                     body: formData
                 });
                 const res = await data.json();
-               
+
                 if (res.error) {
                     alert("저장 중 오류가 발생했습니다.");
                     console.error("오류 발생: " + res.error);
                 } else {
                     alert(res.msg)
+                    if (category == "plan") {
+                        window.location.href = "/plan"
+                    } else {
+                        window.location.href = "/board"
+                    }
 
                 }
-                // if (data.code === 200) {
-                //     window.location.href = "/"+page.value;
-                // } else if(data.code === 201){
-                //     window.location.href = "/"+page.value;
-                // }
             });
         });
 

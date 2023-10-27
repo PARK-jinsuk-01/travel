@@ -64,13 +64,13 @@
                 <span name="name" th:text="${travelBoard.member.name}"></span>
             </div>
             <div class="post_area">
-                <button type="button" class="btn_good" onclick="setLike();">
+                <button type="button" class="btn_good"  id="likeButton">
                     <span class="ico">좋아요</span>
-                    <span class="num" id="conLike">0</span>
+                    <span class="num" id="conLike"></span>
                 </button>
                 <span class="num_view">
                     <em class="tit">조회수</em>
-                    <span class="num" id="conRead">0</span>
+                    <span class="num" id="conRead">[[${#lists.size(travelBoard.views)}]]</span>
                 </span>
             </div>
         </div>
@@ -136,8 +136,79 @@
                 </div>
             </div>
         </div>
+        <input type="hidden" id="memberid" th:if="${session.id != null}" th:value="${session.id}">
+        <input type="hidden" id="boardid" th:if="${travelBoard.id != null}" th:value="${travelBoard.id}">
 
     </div>
 </body>
 
+<script>
+    var memberId = document.getElementById("memberid");
+    var boardid = document.getElementById("boardid");
+    var boardId = boardid.value;
+    var likeButton = document.getElementById("likeButton");
+    const num = document.querySelector('#conLike');
+
+    var param = { memberId: memberId.value, boardId: boardId };
+
+    async function checkLike() {
+        try {
+            
+            const response = await fetch('/bcheckLike', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(param)
+            });
+
+            if (response.ok) {
+                // HTTP 상태코드 200 성공
+                const data = await response.json();
+                console.log(data);
+                if (data.status) {
+                    //좋아요 활성화 값
+                    likeButton.classList.add('active');
+                } else {
+                    //좋아요 비활성화 값
+                    likeButton.classList.remove('active');
+                }
+                num.innerText = data.like;
+            } else {
+                console.error('Error:', response.status, response.statusText);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    // 초기 로딩 시 좋아요 여부 확인
+    checkLike();
+    const conLike = document.getElementById("conLike");
+    likeButton.addEventListener("click", async function () {
+        try {
+            const response = await fetch('/bbtnlike', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(param)
+
+            });
+            
+            if (response.ok) {
+                const data = await response.json();
+                alert(data.msg);
+                if(data.result) {
+                    checkLike();
+                }
+            } else {
+                console.error('Error:', response.status, response.statusText);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    });
+
+</script>
 </html>

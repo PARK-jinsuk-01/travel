@@ -12,7 +12,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -46,7 +45,7 @@ public class SignContoller {
 
     @PostMapping("/signin")
     @ResponseBody
-    public Map<String, Object> signinpost(@ModelAttribute Member member2,
+    public Map<String, Object> signinpost(
         @RequestBody Member member) {
         Map<String, Object> result = new HashMap<>();
 
@@ -63,7 +62,6 @@ public class SignContoller {
                     session.setAttribute("name", existingMember.getName());
                     session.setAttribute("id", existingMember.getId());
                     
-
                     result.put("code", 1);
                     result.put("errorMsg", "로그인 성공");
                     logger.info("비밀번호 일치: " + existingMember.getEmail());

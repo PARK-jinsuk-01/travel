@@ -7,5 +7,6 @@ import com.example.travel.model.TravelPlan;
 
 @Repository
 public interface TravelPlanRepository extends JpaRepository<TravelPlan, Integer> {
-    
+     
 }
+ 
