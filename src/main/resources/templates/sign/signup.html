@@ -54,12 +54,12 @@
                 <!-- 검색창 -->
                 <div class="form">
                     <li>
-                        <span class="input">
+                        <!-- <span class="input">
                             <form id="searchForm">
                                 <input type="text" id="searchInput" placeholder="Search for places">
                                 <input type="button" id="searchButton" class="search_results" value="검색">
                             </form>
-                        </span>
+                        </span> -->
                     </li>
                 </div>
             </ul>
@@ -101,17 +101,20 @@
                 placeholder="비밀번호를 입력해 주세요">
             <div id="pw-error" class="error-message"></div>
             <div id="pw-success" class="success-message"></div>
+            <label for="confirmPw" class="confirmPw">비밀번호 확인:</label>
+        <input type="password" class="pw" name="confirmPw" id="confirmPw" onkeyup="validateConfirmPw()" required>
+        <div id="confirmPw-error" class="error-message"></div>
 
             <label for="name" class="namebox">Name:</label>
             <input type="text" class="name" name="name" id="name" placeholder="이름을 입력해주세요">
             <div></div>
-            <label for="phone">Phone Number:</label>
+            <label for="phone" class="phonebox">Phone Number:</label>
             <input type="text" class="phone" name="phone" id="phone" placeholder="핸드폰 번호를 입력해주세요"
                 oninput="this.value = this.value.replace(/[^0-9]/g, ''); validatePhone();" maxlength="11">
             <div id="phone-error" class="error-message"></div>
 
             <ul> 
-               <li><span>
+               <li><span id="bdbox">
                 Birthday: 
                 </span></li>
                     
@@ -144,6 +147,7 @@
 
 
     <script>
+        
         const securitycode = document.getElementById("securitycode");
         async function emailcheck() {
             document.getElementById("emailLabel").style.display = "block";
@@ -245,6 +249,16 @@
             updateSubmitButton();
         }
 
+        function validateConfirmPw() {
+            const pw = document.querySelector("[name=pw]").value;
+            const confirmPw = document.querySelector("[name=confirmPw]").value;
+
+            if (pw !== confirmPw) {
+                document.getElementById("confirmPw-error").textContent = "비밀번호가 일치하지 않습니다.";
+            } else {
+                document.getElementById("confirmPw-error").textContent = "";
+            }
+        }
 
         async function validatePw() {
             const pw = document.querySelector("[name=pw]").value;
@@ -294,7 +308,7 @@
             var value = dayField.value.trim();
             var numericValue = parseInt(value);
 
-            if (value === '' || (numericValue) || numericValue >= 1 && numericValue <= 31) {
+            if (value === '' ||  numericValue >= 0 && numericValue <= 31) {
                 // 값이 비어있지 않고 지정된 범위 내에 있을 때는 아무것도 하지 않음
                 return;
             }
@@ -353,6 +367,23 @@
 
 
         document.addEventListener('DOMContentLoaded', function () {
+            const loginButton = document.getElementById('login-button'); // 로그인 버튼
+    const email ="${email}"
+    if (email) {
+        // 사용자가 로그인 상태일 때
+        loginButton.textContent = '로그아웃';
+        loginButton.addEventListener('click', function () {
+            // 로그아웃 로직을 수행할 함수를 호출 (loginOrLogout 함수와 같은 역할)
+            logout();
+        });
+    } else {
+        // 사용자가 로그아웃 상태일 때
+        loginButton.textContent = '로그인';
+        loginButton.addEventListener('click', function () {
+            // 로그인 로직을 수행할 함수를 호출 (loginOrLogin 함수와 같은 역할)
+            login();
+        });}
+
             // Sign Up 버튼을 클릭할 때 비동기 통신을 시작합니다.
             var signupButton = document.getElementById("signupButton");
             signupButton.addEventListener("click", function () {

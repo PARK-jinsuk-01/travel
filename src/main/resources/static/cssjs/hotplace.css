@@ -23,14 +23,293 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
+/* 상단 */
+html{
+    margin: 0;
+    width: 100%;
+    display: block;
+    box-sizing: border-box;
+}
+
+body {
+    position: relative;
+    margin: 0;
+    background-color: #f8f9fa;
+    color: #737881;
+    font: 14px malgun gothic,"sans serif";
+    width: 100%;
+    line-height: 1;
+    overflow-y: scroll;
+    display: block;
+}
+
+div .wrapper{
+    margin: 0;
+    min-width: 1064px;
+    border-bottom-color: #fff;
+}
+input[type=text]{
+    /* position: absolute; */
+    padding: 0 10px;
+    border-radius: 0;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    height: 20px;
+    border:0;
+}
+
+.search {
+    display: inline-block;
+    border: 0 none;
+    position: relative;
+    right: 0;
+    top: -2px;
+    text-indent: -9999px;
+    width: 24px;
+    height: 24px;
+    background: url(https://korean.visitkorea.or.kr/resources/images/common/btn_header_search.png);
+}
+
+.wrapper {
+    margin-top: -15px;
+    position: relative;
+    display: block;
+    width: 100%;
+    min-width: 360px;
+    height: 80px;
+    color: #737881;
+    line-height: 1;
+    font: 12px"sans serif";
+    border-bottom: 1px solid #dde1e5;
+    background-color: #fff;
+    z-index: 9999999;
+}
+
+.wrapper .logo {
+    height: 62px;
+    text-align: center;
+}
+
+.wrapper .logo a {
+    width: 100%;
+    position: relative;
+    display: inline-block;
+    text-decoration: none;
+}
+
+.wrapper a, .wrapper a .icon {
+    transition: all .15s linear;
+}
+
+.wrapper .logo img {
+    vertical-align: top;
+    margin: -13px;
+    width: 175px;
+    overflow: hidden;
+}
+h1[class="logo"]{
+    margin-top: 10px;
+}
+h1 .barleft{
+    position: relative;
+    margin-top: 30px;
+}
+.wrapper .barleft {
+    height: 62px;
+    margin-top: -62px;
+    padding-left: 1px;
+}
+
+.wrapper .allmenu {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 107px;
+    height: 62px;
+    font-size: large;
+    font-weight: bold;
+}
+
+.wrapper .allmenu a {
+    display: block;
+    padding: 23px 23px 21px;
+}
+
+.wrapper .allmenu a:hover {
+    color: #07f;
+}
+
+.wrapper .barright {
+    display: flex;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 62px;
+    padding-right: 11px;
+    text-align: right;
+}
+
+.wrapper .barright>div {
+    position: relative;
+    margin-right: 8px;
+    z-index: 20;
+    box-sizing: border-box;
+}
+
+.wrapper .barright>div>a{
+    display: block;
+    height: 62px;
+
+}
+
+.wrapper .barright .join {
+    align-items: center;
+    display: flex;
+    zoom: 1;
+    padding: 0;
+}
+
+.wrapper .barright .join button {
+    border: none;
+    background: none;
+    font-size: large;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.wrapper .barright .login {
+    align-items: center;
+    display: flex;
+    padding: 13px 9px 0 0;
+    padding: 0;
+}
+
+.wrapper .barright .login button {
+    border: none;
+    background: none;
+    font-size: large;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button {
+    padding: 0;
+}
+
+.subwrapper {
+    margin-top: 0;
+    background-color:white;
+    position: relative;
+    min-width: 360px;
+    z-index: 9999998;
+    height: 55px;
+    min-width: 1064px;
+}
+
+.subwrapper .subnav ul {
+    width: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    font-size: large;
+    font-weight: bold;
+    border-bottom: 2px solid;
+}
+
+.subwrapper .subnav li a:hover {
+    cursor: pointer;
+    color: black;
+    border-bottom: 1px solid rgb(192, 186, 186);
+}
+
+.subwrapper .subnav li {
+    display: inline-block;
+    height: 55px;
+    margin: 0 16px 0 20px;
+}
+
+.subwrapper .subnav a {
+    display: block;
+    height: 37px;
+    padding-top: 18px;
+    color: #9fa1a7;
+    font: 16px;
+    transition: all .15s linear;
+}
+
+
+a {
+    text-decoration: none;
+    margin-top: 7px;
+    color: black;
+}
+a:hover{
+    color: #07f;
+}
+
+#wrapper {
+    background-color: #ffffff;
+    position: relative;
+    min-width: 1024px;
+    min-height: calc(100vh - 63px);
+    padding-bottom: 80px;
+}
+
+#contents {
+    margin: 0 auto;
+}
+.tab {
+    justify-content: center;
+    display: flex;
+    padding-top: 88px;
+
+    font: 700 24px 
+}
+
+.tab a {
+    display: block;
+    height: 41px;
+}
+
+.tab ul {
+    list-style: none;
+    display: flex;
+    list-style: none;
+    margin: 0 auto;
+    width: 65%;
+    padding: 0;
+    border: 0;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.tab .selected2 {
+    border-bottom: 2px solid #000;
+}
+
+.tab li {
+    display: inline-block;
+    margin-right: 35px;
+}
+
+.tab .selected a:hover {
+    color: #07f;
+}
+.tab .selected {
+    color: #737881;
+}
+
 
 #map{
     position: absolute;
 	margin-top: 120px;
     /* width: max-content; */
-    width: 1500px;
+    width: 1800px;
     height: 600px;
-	left: 350px;
+	left: 50px;
 	
 }
 
@@ -53,7 +332,7 @@ footer, header, hgroup, menu, nav, section {
 }
 
 #search_results {
-    margin-top: 10px;
+    margin-top: 100px;
 	height: max-content;
 }
 
@@ -83,7 +362,11 @@ footer, header, hgroup, menu, nav, section {
     background-color: #e0e0e0;
 }
 
-
+#closeButton{
+	position: relative;
+	top:90px;
+	left: 10px;
+}
 #searchContainer{
 	position: relative;
 	margin-top: 20px;
@@ -92,19 +375,19 @@ footer, header, hgroup, menu, nav, section {
 	position: relative;
 	right: 171px;
 	left: 1528px;
-	top: 60px;
+	top: 28px;
 	margin-top: 22px;
 	margin-right: 305px;
 	width: 320px;
-	height: 48px;
+	height: 57px;
 	border: 0px solid #888;
 	border-bottom: 1px solid;
 }
 
 .radius{
 	position: relative;
-	margin-left: 1528px;
-	margin-top: 700px;
+	margin-left: 1546px;
+	margin-top: 660px;
 	bottom: 15px;
 	/* margin-bottom: 200px; */
 }
@@ -118,18 +401,18 @@ footer, header, hgroup, menu, nav, section {
 #searchAgainButton{
 	position: relative;
 	/* top: -40px; */
-	bottom: 40px;
+	bottom: 35px;
 	left: 80px;
 	margin-left: 86px;
-	margin-bottom: 20px;
+	margin-bottom: 10px;
 }
 #searchCenterButton {
 	
 	position: relative;
 	/* right: 500px; */
-	/* top: 520px; */
-	left: 980px;
-	bottom: 200px;
+	/* top: 120px; */
+	left: 840px;
+	bottom: 80px;
 	background-image: none;
 	border-radius: 20px;
 	border: 1px none;
@@ -147,12 +430,12 @@ footer, header, hgroup, menu, nav, section {
 #clearMarkersButton{
 	position: relative;
 	background-color: none;
+	/* bottom: 20px; */
 	/* background-image: url(https://cdn-icons-png.flaticon.com/512/60/60686.png); */
 	left: 200px;
 	
-	margin-top: 143px;
-	margin-left: 150px;
-	bottom: 248px;
+	left: 330px;
+	bottom: 95px;
 }
 #search_results {
 	/* display: none; */
@@ -203,13 +486,15 @@ footer, header, hgroup, menu, nav, section {
 	height: 100%;
 	width: 0;
 	position: fixed;
-	top: 0;
-	left: 0;
+	margin-left: 20px;
+	top: 30px;
+	left: -20px;
 	background-color: #7acfcc;
 	overflow-x: hidden;
 	transition: 0.5s;
-	padding-top: 60px;
+	padding-top: 30px;
 	color: rgb(64, 68, 67);
+	z-index: 1;
 }
 
 /* 사이드바 메뉴 아이템 스타일 */
@@ -250,11 +535,14 @@ footer, header, hgroup, menu, nav, section {
 	cursor: pointer;
 	font-weight: 550;
 	left: 10px;
-	bottom: 647px;
+	bottom: 740px;
+}
+.pushed{
+	padding: 400px;
 }
 /* 사이드바가 열렸을 때의 컨텐츠 마진 스타일 */
 #main.pushed {
-	margin-left: 250px;
+	margin-left: 400px;
 }
 .close-button {
 	position: absolute;

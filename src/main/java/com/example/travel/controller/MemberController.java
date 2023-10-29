@@ -1,25 +1,32 @@
 package com.example.travel.controller;
 
+// import java.security.Principal;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.security.core.Authentication;
+// import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+// import org.springframework.web.bind.annotation.ControllerAdvice;
+// import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+// import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.travel.model.Member;
 import com.example.travel.repository.MemberRepository;
 
 @Controller
+
 public class MemberController {
 
     @Autowired
@@ -37,32 +44,28 @@ public class MemberController {
     @PostMapping("/signup")
     @ResponseBody
     @Transactional
-    public String signupPost(@RequestBody Map<String, Object>data, BindingResult bindingResult, HttpSession session) {
+    public String signupPost(@RequestBody Map<String, Object> data, BindingResult bindingResult, HttpSession session) {
         // 빈 필드 검사
-        String email =(String) data.get("email");
-        String pw =(String) data.get("pw");
-        String name =(String) data.get("name");
-        String phone =(String) data.get("phone");
-        String yy =(String) data.get("yy");
-        String mm =(String) data.get("mm");
-        String dd =(String) data.get("dd");
-        
+        String email = (String) data.get("email");
+        String pw = (String) data.get("pw");
+        String name = (String) data.get("name");
+        String phone = (String) data.get("phone");
+        String yy = (String) data.get("yy");
+        String mm = (String) data.get("mm");
+        String dd = (String) data.get("dd");
 
         System.out.println(data.get("yy"));
         if (email == null || email.isEmpty() ||
-           pw == null || pw.isEmpty() ||
-           phone == null || phone.isEmpty()) {
+                pw == null || pw.isEmpty() ||
+                phone == null || phone.isEmpty()) {
             return "모든 필드를 작성해주세요.";
         }
 
-        String birth = (String)(yy + "-" + mm + "-" + dd);  
-        
-        
+        String birth = (String) (yy + "-" + mm + "-" + dd);
 
-        
         System.out.println(birth);
         // 세션 데이터와 입력 데이터 비교
-       
+
         Member emailCheck = memberRepository.findByEmail(email);
         if (emailCheck != null) {
             return "이미 가입된 이메일입니다.";
@@ -74,9 +77,9 @@ public class MemberController {
 
         String rawPassword = pw;
         String encodedPassword = passwordEncoder.encode(rawPassword);
-        
+
         Member member = new Member();
-        
+
         member.setEmail(email);
         member.setPw(encodedPassword);
         member.setName(name);
@@ -102,4 +105,65 @@ public class MemberController {
             return "가입가능";
         }
     }
+
+    @GetMapping("/mypage")
+    public String mypage(@RequestParam int memberId, Model model) {
+
+        System.out.println(memberId + "@@@@@@@");
+        Member selectMember = memberRepository.findById(memberId).get();
+        model.addAttribute("member", selectMember);
+        return "sign/mypage";
+    }
+
+    @PostMapping("/updateUserInfo")
+    @ResponseBody
+    public String updateUserInfo(@RequestBody Map<String, String> data) {
+        // System.out.println(data);
+        if (data == null) {
+            return "로그인이 필요합니다.";
+        }
+
+        int id = Integer.valueOf(data.get("id"));
+        String name = (String) data.get("name");
+        String pw = (String) data.get("pw");
+        String phone = (String) data.get("phone");
+        String yy = (String) data.get("yy");
+        String mm = (String) data.get("mm");
+        String dd = (String) data.get("dd");
+
+        System.out.println(data);
+        if (pw == null || pw.isEmpty() ||
+                phone == null || phone.isEmpty()) {
+            return "모든 필드를 작성해주세요.";
+        }
+        System.out.println(data + "@#@#@#@#@#@@#");
+        String birth = (String) (yy + "-" + mm + "-" + dd);
+
+        // Member phoneCheck = memberRepository.findByPhone(phone);
+        // if (phoneCheck != null) {
+        //     return "중복된 핸드폰 번호입니다.";
+        // }
+
+        String rawPassword = pw;
+        String encodedPassword = passwordEncoder.encode(rawPassword);
+        System.out.println(data + "!@!@@!@!@#!#!##!#!#!");
+        Member member = memberRepository.findById(id).get();
+
+        System.out.println("#@$!$" + id);
+
+        // 업데이트할 사용자 정보 설정
+        member.setId(id);
+        member.setPw(encodedPassword);
+        member.setName(name);
+        member.setPhone(phone);
+        member.setYy(yy);
+        member.setMm(mm);
+        member.setDd(dd);
+        member.setBirth(birth);
+        // System.out.println(member + "!@!@!!@");
+        memberRepository.save(member);
+
+        return "정보가 업데이트되었습니다.";
+    }
+
 }

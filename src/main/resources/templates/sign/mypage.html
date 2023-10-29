@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <title>마이페이지</title>
+    <link rel="stylesheet" th:href="@{/cssjs/mypage.css}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="bar">
+            <h1 class="logo">
+                <a href="/">
+                    <img src="/img/logo.png" alt="Travel">
+                </a>
+            </h1>
+            <div class="barleft">
+                <div class="allmenu">
+                    <a href="">
+                        <span class="baricon">
+                            <i class="fa-solid fa-bars"></i>
+                        </span>
+                        <span>메뉴</span>
+                    </a>
+                </div>
+            </div>
+            <div class="barright">
+                <div class="join">
+                    <button th:if="${email == null}"><a href="/signup">회원가입</a></button>
+                </div>
+                <div class="login" id="login-logout">
+                    <button id="login-button" th:if="${email == null}" onclick="loginOrLogin()">로그인</button>
+
+                    <button id="login-button" th:if="${email != null}" onclick="loginOrLogout()">로그아웃</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="subwrapper">
+        <nav class="subnav">
+            <ul>
+                <li>
+                    <a href="#">공지사항</a>
+                </li>
+                <li>
+                    <a href="#">여행계획</a>
+                </li>
+                <li>
+                    <a href="#">여행일지</a>
+                </li>
+                <li>
+                    <a href="#">고객센터</a>
+                </li>
+                <li>
+                    <!-- <span class="input">
+                        <input type="text" id="searchInput" placeholder="어떤 여행?">
+                        <input type="button" id="searchButton" class="search"value="검색">
+                    </span> -->
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <h1>마이페이지</h1>
+
+    <form id="mypageForm" th:action="@{/updateUserInfo}" method="post" >
+        <div>
+            <input type="hidden" class="form-control" id="id" name="id" th:value="${member.id}">
+        </div>
+        <label for="email" class="emailtitle" style="position: relative;width: fit-content;">Email:</label>
+        <input type="hidden" name="email" th:value="${member.email}"> <!-- 이메일 숨김 필드 -->
+        <span th:text="${member.email}"></span> <!-- 이메일 표시 -->
+        <br>
+        <label for="name" class="nametitle">Name:</label>
+        <input type="text" class="name" name="name" id="name" th:value="${member.name}">
+        <div>
+            <label for="pw" class="pwtitle">Pw:</label>
+            <input type="password" class="pw" name="pw" id="pw" onkeyup="validatePw()" required
+                title="영문 숫자 특수기호 조합 8자리 이상 입력해 주세요">
+        </div>
+        <div id="pw-error" class="error-message"></div>
+        <div id="pw-success" class="success-message"></div>
+        <br>
+        <label for="confirmPw" class="confirmPw">비밀번호 확인:</label>
+        <input type="password" class="pw" name="confirmPw" id="confirmPw" onkeyup="validateConfirmPw()" required>
+        <div id="confirmPw-error" class="error-message"></div>
+        <br>
+        <!-- <label for="currentPw">Current Password:</label>
+    <input type="password" class="currentPw" name="currentPw" id="currentPw" required> -->
+        <label for="phone" class="phonetitle">Phone Number:</label>
+        <input type="text" class="phone" name="phone" id="phone" th:value="${member.phone}"
+            oninput="this.value = this.value.replace(/[^0-9]/g, ''); validatePhone();" maxlength="11">
+        <div id="phone-error" class="error-message"></div>
+        <br>
+        <ul>
+
+            <li class="birthdetail">
+
+                <span class="birthtitle">
+                    생일:
+                </span>
+                <label for="birth" class="birthbox">
+                    <input type="text" class="yy" name="yy" id="yy" th:value="${member.yy}"
+                        oninput="this.value = this.value.replace(/[^0-9]/g, ''); updateBirth();" maxlength="4">
+                    <input type="text" class="mm" name="mm" id="mm" th:value="${member.mm}"
+                        oninput="this.value = this.value.replace(/[^0-9]/g, ''); updateBirth();" maxlength="2"
+                        onblur="validateMonth(this);">
+                    <input type="text" class="dd" name="dd" id="dd" th:value="${member.dd}"
+                        oninput="this.value = this.value.replace(/[^0-9]/g, '');validateDay(this, event); updateBirth();"
+                        maxlength="2" onblur="validateDay(this);">
+                    <br>
+            </li>
+            </label>
+        </ul>
+        <li>
+            <h1 id="birth" name="birth">생년월일: </h1>
+        </li>
+        <button type="button" onclick="updateUserInfo()" id="updateButton">정보 수정</button>
+    </form>
+    <div id="updateResult"></div>
+
+
+    <script>
+
+
+        async function validatePw() {
+            const pw = document.querySelector("[name=pw]").value;
+            var pwPattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+            if (!pwPattern.test(pw)) {
+                document.getElementById("pw-error").textContent = "비밀번호는 영문, 숫자, 특수문자를 모두 포함하고 8자리 이상이어야 합니다.";
+                document.getElementById("pw-success").textContent = "";
+            } else {
+                document.getElementById("pw-error").textContent = "";
+                document.getElementById("pw-success").textContent = '사용 가능합니다.';
+            }
+
+        }
+        function validateConfirmPw() {
+            const pw = document.querySelector("[name=pw]").value;
+            const confirmPw = document.querySelector("[name=confirmPw]").value;
+
+            if (pw !== confirmPw) {
+                document.getElementById("confirmPw-error").textContent = "비밀번호가 일치하지 않습니다.";
+            } else {
+                document.getElementById("confirmPw-error").textContent = "";
+            }
+        }
+
+        function validatePhone() {
+            const phone = document.querySelector("[name=phone]").value;
+
+            if (phone.length !== 11) {
+                document.getElementById("phone-error").textContent = "핸드폰 번호는 11자리여야 합니다.";
+            } else {
+                document.getElementById("phone-error").textContent = "";
+            }
+
+
+        }
+
+        function validateMonth(monthField, event) {
+            var value = monthField.value.trim();
+            var numericValue = parseInt(value);
+
+            if (value === '' || (numericValue >= 1 && numericValue <= 12)) {
+                // 입력값이 비어 있거나 지정된 범위 내에 있을 때는 아무런 작업을 수행하지 않음
+                return;
+            }
+
+            // 입력값이 빈 칸이 아니고 1부터 12 범위를 벗어날 때만 알림창을 표시
+            alert("월은 1부터 12까지의 숫자만 입력할 수 있습니다.");
+            monthField.value = "";
+
+            if (event) event.stopPropagation();
+
+        }
+
+        function validateDay(dayField, event) {
+            var value = dayField.value.trim();
+            var numericValue = parseInt(value);
+
+            if (value === '' || numericValue >= 0 && numericValue <= 31) {
+                // 값이 비어있지 않고 지정된 범위 내에 있을 때는 아무것도 하지 않음
+                return;
+            }
+
+            // 입력값이 비어 있거나 범위를 벗어날 때만 알림창 띄우기
+            alert("일은 1부터 31까지의 숫자만 입력할 수 있습니다.");
+            dayField.value = "";
+
+            if (event) event.stopPropagation();
+
+        }
+
+        function updateBirth() {
+            const yy = document.querySelector("[name=yy]").value;
+            const mm = document.querySelector("[name=mm]").value;
+            const dd = document.querySelector("[name=dd]").value;
+            const birth = `${yy}-${mm}-${dd}`;
+
+            // "h1" 태그에 날짜 정보 추가
+            document.getElementById("birth").textContent = `생년월일: ${birth}`;
+
+
+        }
+
+
+
+        document.addEventListener('DOMContentLoaded', async function () {
+            const emailElement = document.getElementById('email');
+            const nameElement = document.getElementById('name');
+            const idElement = document.getElementById('id');
+            const pwElement = document.getElementById('pw');
+            const phoneElement = document.getElementById('phone');
+            const birthElement = document.getElementById('birth');
+            const loginButton = document.getElementById('login-button'); // 로그인 버튼
+            const email = "${email}"
+            if (email) {
+                // 사용자가 로그인 상태일 때
+                loginButton.textContent = '로그아웃';
+                loginButton.addEventListener('click', function () {
+                    // 로그아웃 로직을 수행할 함수를 호출 (loginOrLogout 함수와 같은 역할)
+                    logout();
+                });
+            } else {
+                // 사용자가 로그아웃 상태일 때
+                loginButton.textContent = '로그인';
+                loginButton.addEventListener('click', function () {
+                    // 로그인 로직을 수행할 함수를 호출 (loginOrLogin 함수와 같은 역할)
+                    login();
+                });
+            }
+
+            const response = await fetch('/mypage'); // 마이페이지 정보 가져오기
+
+            if (response.ok) {
+                const userInfo = await response.json();
+                emailElement.textContent = userInfo.email;
+                nameElement.value = userInfo.name;
+                pwElement.value = pwInfo.pw;
+                phoneElement.value = userInfo.phone;
+                birthElement.textContent = userInfo.birth;
+            } else {
+                emailElement.textContent = '사용자 정보를 불러올 수 없습니다.';
+            }
+        });
+
+        async function updateUserInfo() {
+            const newName = document.getElementById('name').value;
+            const newPhone = document.getElementById('phone').value;
+            const newPw = document.getElementById('pw').value;
+            const newYy = document.getElementById('yy').value;
+            const newMm = document.getElementById('mm').value;
+            const newDd = document.getElementById('dd').value;
+            const newId = document.getElementById('id').value;
+
+            const confirmPw = document.getElementById('confirmPw').value;
+
+            if (newPw !== confirmPw) {
+                alert('비밀번호가 일치하지 않습니다.');
+                return;
+            }
+
+            if (newPw === "") {
+                alert('비밀번호를 입력해주세요.'); // 사용자에게 알림을 표시
+                return; // 정보 업데이트를 중단
+            }
+
+            // 수정된 정보를 서버로 보내는 AJAX 요청
+            const data = { name: newName, phone: newPhone, pw: newPw, yy: newYy, mm: newMm, dd: newDd, id: newId };
+            const response = await fetch('/updateUserInfo', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            if (response.ok) {
+                alert('사용자 정보가 업데이트되었습니다.');
+            } else {
+
+                alert('사용자 정보 업데이트에 실패했습니다.');
+
+            } console.log(data);
+        }
+
+        async function logout() {
+            const response = await fetch('/logout', {
+                method: 'POST'
+            });
+
+            if (response.ok) {
+                window.location.href = '/signin';
+            } else {
+                alert('로그아웃에 실패했습니다.');
+            }
+            console.log(data);
+        }
+
+    </script>
+</body>
+
+</html>
