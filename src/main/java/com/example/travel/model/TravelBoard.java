@@ -44,4 +44,10 @@ public class TravelBoard {
 
     @OneToMany(mappedBy = "travelBoard")
     List<TravelLike> likes = new ArrayList<>();
+
+    @OneToMany(mappedBy = "travelBoard")
+    List<Comment> comments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "travelBoard")
+    List<CommentLike> cLikes = new ArrayList<>();
 }

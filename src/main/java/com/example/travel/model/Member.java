@@ -53,4 +53,12 @@ public class Member implements Serializable {
 
     @OneToMany(mappedBy = "member")
     List<TravelLike> likes = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    List<Comment> comments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    List<CommentLike> cLikes = new ArrayList<>();
+
+
 }
