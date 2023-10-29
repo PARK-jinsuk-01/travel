@@ -75,7 +75,9 @@
 <span id="openNav" onclick="openNav()">&#9776; 관광지 목록 보기</span>
 <div id="sidebar">
     <button class="close-button" id="closeButton"onclick="closeNav()">❌</button>
-<div id="search_results"></div></div>
+    <button class="convenient" onclick="redirectToMap()">편의시설 찾기</button>
+<div id="search_results"></div>
+</div>
 <button id="searchAgainButton">내 위치 기준 관광명소 검색</button>
 <br><br>
 <button id="searchCenterButton">&#8635;&nbsp; 현 지도에서 검색</button>
@@ -290,6 +292,9 @@
     function closeNav() {
         document.getElementById("sidebar").style.width = "0";
         document.getElementById("main").classList.remove("pushed");
+    }
+    function redirectToMap() {
+        window.location.href = '/map'; // 이 URL을 '/map' 페이지로 변경하세요.
     }
 </script>
 </body>
