@@ -1,3 +1,378 @@
+/* 상단 */
+html{
+    margin: 0;
+    width: 100%;
+    display: block;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background-color: #f8f9fa;
+    color: #737881;
+    font: 14px malgun gothic,"sans serif";
+    width: 100%;
+    line-height: 1;
+    overflow-y: scroll;
+    display: block;
+}
+
+div .wrapper{
+    margin: 0;
+    min-width: 1064px;
+    border-bottom-color: #fff;
+}
+
+/* #searchInput { */
+   /* position: absolute; */
+   /* left: 80px; */
+    /* margin-top: 0;
+    margin-bottom: 10px; */
+    
+    /* right: 370px; */
+/* } */
+
+/* .search_results { */
+    /* position: absolute; */
+    /* margin-top: 0;
+    margin-bottom: 10px; */
+     /* right: 320px; */
+ /* } */
+.wrapper {
+    margin-top: -15px;
+    position: relative;
+    display: block;
+    width: 100%;
+    min-width: 360px;
+    height: 80px;
+    color: #737881;
+    line-height: 1;
+    font: 12px"sans serif";
+    border-bottom: 1px solid #dde1e5;
+    background-color: #fff;
+    z-index: 9999999;
+}
+
+.wrapper .logo {
+    height: 62px;
+    text-align: center;
+}
+
+.wrapper .logo a {
+    width: 100%;
+    position: relative;
+    display: inline-block;
+    text-decoration: none;
+}
+
+.wrapper a, .wrapper a .icon {
+    transition: all .15s linear;
+    margin-top: 2px;
+}
+
+.wrapper .logo img {
+    vertical-align: top;
+    margin: -13px;
+    width: 175px;
+    overflow: hidden;
+}
+
+.wrapper .barleft {
+    height: 62px;
+    margin-top: -62px;
+    padding-left: 1px;
+}
+
+.wrapper .allmenu {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 107px;
+    height: 62px;
+    font-size: large;
+    font-weight: bold;
+}
+
+.wrapper .allmenu a {
+    display: block;
+    padding: 23px 23px 21px;
+}
+
+.wrapper .allmenu a:hover {
+    color: #07f;
+}
+
+.wrapper .barright {
+    display: flex;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 62px;
+    padding-right: 11px;
+    text-align: right;
+}
+
+.wrapper .barright>div {
+    position: relative;
+    margin-right: 8px;
+    z-index: 20;
+    box-sizing: border-box;
+}
+
+.wrapper .barright>div>a{
+    display: block;
+    height: 62px;
+
+}
+
+
+.gnbCommon .form{
+    position: absolute;
+    right: 60px;
+    top: 20px;
+    display: flex;
+}
+.gnbCommon .input {
+    width: 292px;
+    position: absolute;
+    height: 42px;
+    padding-right: 30px;
+    box-sizing: border-box;
+    border-bottom: 1px solid black; 
+}
+.gnbCommon .input input {
+    width: 100%;
+    height: 40px;
+    box-sizing: border-box;
+    font-size: 16px;
+    border: 0;
+    padding: 0 0 0 10px;
+    font-weight: 400;
+    color: black;
+    background: 0;
+}
+.gnbCommon .input input::placeholder {
+    color: #848484;
+    font-weight: 300;
+}
+input[type=text] {
+    padding: 10px 5px;
+    border-radius: 0;
+    font-size: 10px;
+}
+.success-message {
+    position: relative;
+    text-align: center;
+}
+.error-message{
+    position: relative;
+    text-align: center;
+}
+
+.wrapper .barright .join {
+    align-items: center;
+    display: flex;
+    zoom: 1;
+    padding: 0;
+}
+
+.wrapper .barright .join button {
+    border: none;
+    background: none;
+    font-size: large;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.wrapper .barright .login {
+    align-items: center;
+    display: flex;
+    padding: 13px 9px 0 0;
+    padding: 0;
+}
+
+.wrapper .barright .login button {
+    border: none;
+    background: none;
+    font-size: large;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button {
+    padding: 0;
+}
+
+.subwrapper {
+    margin-top: 0;
+    background-color:white;
+    position: relative;
+    min-width: 360px;
+    z-index: 9999998;
+    height: 55px;
+    min-width: 1064px;
+}
+
+.subwrapper .subnav ul {
+    width: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    font-size: large;
+    font-weight: bold;
+    border-bottom: px solid;
+}
+
+.subwrapper .subnav li a:hover {
+    cursor: pointer;
+    color: black;
+    border-bottom: 1px solid black;
+}
+
+.subwrapper .subnav li {
+    display: inline-block;
+    height: 55px;
+    margin: 0 16px 0 20px;
+}
+
+.subwrapper .subnav a {
+    display: block;
+    height: 37px;
+    padding-top: 18px;
+    color: #9fa1a7;
+    font: 16px;
+    transition: all .15s linear;
+}
+
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+#wrapper {
+    background-color: #ffffff;
+    position: relative;
+    min-width: 1024px;
+    min-height: calc(100vh - 63px);
+    padding-bottom: 80px;
+}
+
+#contents {
+    margin: 0 auto;
+}
+
+.tab {
+    justify-content: center;
+    display: flex;
+    padding-top: 88px;
+
+    font: 700 24px 
+}
+
+.tab a {
+    display: block;
+    height: 41px;
+}
+
+.tab ul {
+    list-style: none;
+    display: flex;
+    list-style: none;
+    margin: 0 auto;
+    width: 65%;
+    padding: 0;
+    border: 0;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.tab .selected {
+    border-bottom: 2px solid #000;
+}
+
+.tab li {
+    display: inline-block;
+    margin-right: 35px;
+}
+
+.tab .selected2 a:hover {
+    color: #07f;
+}
+
+.sort {
+    top: 161px;
+    left: 0;
+    display: flex;
+    min-width: 408px;
+    width: 65%;
+    height: 50px;
+    padding: 0px;
+    justify-content: end;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.list {
+    display: block;
+    background-color: aaaaaa1f;
+    width: 65%;
+    margin: 0 auto;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+}
+
+.travelcard {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: auto;
+    background-color: white;
+    display: inline-block;
+    margin: 0 0px 72px 0;
+    overflow: hidden;
+    transition: transform 0.3s;
+}
+.travelcard .img {
+    height: 260px;
+    width: 100%;
+    overflow: hidden;
+    display: block;
+}
+.travelcard img {
+    height: 100%;
+    width: 100%;
+    transform-origin: center center; 
+    transition: transform 0.3s;
+}
+.travelcard img:hover {
+    transform: scale(1.1);
+}
+
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    padding-top: 31px;
+    color: #9fa1a7;
+    font-size: 11px;
+    border-top: 1px solid #e5e8eb;
+    text-align: center;
+}
+
+
+
+
+
+
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
@@ -16,6 +391,7 @@ article, aside, canvas, details, embed,
 figure, figcaption, footer, header, hgroup, 
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
+    list-style: none;
 	margin: 0;
 	padding: 0;
 	border: 0;
@@ -52,6 +428,7 @@ html {
     width: 100%;
     height: 100%;
 }
+
 body {
     position: relative;
     width: 100%;
@@ -62,68 +439,232 @@ body {
 }
 
 .signupcontainer{
-    max-width: 492px;
+    position: relative;
+    max-width: 828px;
     min-width: 360px;
     min-height: 100%;
     min-height: 100vh;
     padding: 0 16px 200px;;
     margin: 0 auto;
     padding-top: 75px;
-    text-align: center;
+    /* background-color: #ffffff5b; */
+    /* text-align: center  ; */
+    justify-content: space-around;
+    border: 1px solid rgb(190, 190, 197);
     /* background-image:  url(https://image.cine21.com/resize/cine21/still/2014/1210/15_19_45__5487e601ae584[W578-].jpg); */
     
 }
-input{
+
+label {
+   text-align: start;
+   margin-bottom: 30px;
+}
+input {
+    text-align: center;
+   
+    
+}
+input[type=text]{
+    position: relative;
     padding-block: 10px;
     padding-inline: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    /* margin-left: 20px; */
+    justify-content: space-between;
+    right: 0;
+    border: 1px solid;
+    border-bottom:3px solid #092a8d;
+    font-size: medium;
+}
+input[type="password" i]{
+    width: 492px;
+    padding-block: 10px;
+    padding-inline: 21px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    border: 1px solid;
+    border-bottom:3px solid #092a8d;
+    right: 10px;
+    margin-left: 21.79%;
+    top: 0;
+
+}
+input[class="birth"]{
+    width: 18.4%;
+    
+}
+#emailcheckButton{
+    margin-top: 20px;
+}
+#emailLabel{
+    position: relative;
+    top: 35px;
+}
+#email{
+    position: relative  ;
+    
+    width: 92%;
+    margin-right: 120px;
+    margin-left: 180px;
+    margin-top: -26px;
     margin-bottom: 10px;
 }
-#birth{
+#echeckLabel{
+    position: relative;
+    left: -80px;
+    margin-left: 80px;
+    top: 32px;
+    display: inline-block;
+    margin-bottom: 30px;
+}
+#result2{
+    position: relative;
+    text-align: center;
+}
+#echeck{
+    position: relative;
+
+    width: 59%;
+    margin-right: 5px;
+    margin-left: 183px;
+    margin-top: -26px;
+}
+#pw {
+    /* margin-bottom: 2px; */
+    width: 100%;
+    position: relative;
+    margin-right: 5px;
+    margin-left: 50;
+    top: 10px;
+}
+#name{
+    position: relative;
+    margin-bottom: 2px;
+    margin-left:177px ;
+    margin-bottom: 15px;
+    width: 60%;
+}
+.phone{
+    position: relative;
+    margin-bottom: 2px;
+    margin-left:177px ;
+    margin-bottom: 15px;
+    width: 60%;
+}
+.birth{
     font-size: small;
+    width: 130px;
 }
 #signupForm{
     display: flex;
-   
+   /* border: 1px solid #7395d4; */
     flex-direction: column;
-
+}
+.phonebox{
+    position: relative;
+    top: 57px;
 }
 .birthbox{
-    margin-top: 20px;
+    margin-top: 23px;
+    display: flex;
+    justify-content: center;
+    margin-left: 67px;
+}
+
+.birthbox>span{
+    display: block;
+    }
+#bdbox{
+    position: relative;
+    top: 50px;
 }
 h2{
     text-align: center;
-    padding-bottom: 10px;
+    padding-bottom: 100px;
     font-size: xx-large;
     font-weight: bold;
     
 }
+#confirmPw{
+    position: relative;
+    margin-left: 65px;
+    left: 115px;
+    width: 60%;
+}
+.confirmPw{
+    position: relative;
+    top: 50px;
+    margin-right: 65px;
+    width: 60%;
+}
 .btn-h {
     /* border: 1px solid #006400; */
-			width: 100px;
+			width: 50px;
 			height: 50px;
 			position: absolute;
+            margin-top: 10px;
+            margin-right: 10px;
+            padding: 0;
 			top: 0;
 			right: 0;
             cursor: pointer;
+            border-radius: 1px;
+            border: hidden;
+            font-size: 40px;
+            background-color: rgba(255, 255, 255, 0);
 }
 .btn-e{
+    margin-top: 0;
     margin-bottom: 10px;
+    position: absolute;
+    height: 37px;
+    width: 100px;
+    right: 10px;
+    top: 208px;
+    border: 1px solid #9fa1a7;
+    border-radius: 10px;
 }
 #signupButton {
     /* color: black; */
-    margin-top: 10px;
+    margin-top: 140px;
     font-weight: bold;
     padding-block: 5px;
     padding-inline: 10x;
-    
+    margin-left: 570px;
+    border-radius: 10px;
+    border: 1px solid;
+    border-bottom:3px solid #092a8d;
+    width: 150px;
+}
+#echeckLabel{
+    position: relative;
+    top: 31px;
 }
 .pwbox{
-    margin-top: 10px;
+    position: relative;
+    left: -80px;
+    margin-left: 80px;
+    top: 50px;
+    display: inline-block;
+    margin-bottom: 30px;
+}
+.namebox{
+    position: relative;
+    top: 60px;
 }
 .email{
     margin-bottom: 0;
     max-width: 492px;
 }
+.birthdetail{
+    width: 100%;
+    /* margin-left: 20%;
+    left: 177px;
+    margin-left: 177px;
+    width: 725px; */
+}
 .ebox{
     margin-bottom: 10px;
+    position: relative;
 }
