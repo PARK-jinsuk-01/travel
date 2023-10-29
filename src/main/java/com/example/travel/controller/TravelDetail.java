@@ -478,7 +478,6 @@ public Map<String, Object> pdeleteComment(@RequestBody Map<String, String> comme
         map.put("msg", "올바른 숫자 형식이 아닙니다.");
         map.put("result", false);
     }
-System.out.println(map);
     return map;
 }
 @PostMapping("/bdelete")

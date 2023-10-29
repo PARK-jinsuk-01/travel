@@ -1,0 +1,56 @@
+html{
+    width: 100%;
+}
+body{
+    width: 100%;
+}
+a, li {
+    text-decoration: none;
+    color: black;
+}
+.savebox{
+    width: 100%;
+    display: flex;
+    justify-content: end;
+}
+#saveButton {
+    position: absolute;
+    right: 14px;
+    padding-bottom: 0;
+    overflow: hidden;
+    border: 0 none;
+    color: black;
+    font-size: large;
+    background: #fff;
+    font-weight: bold;
+    margin-right: 5px;
+}
+.seltitbox {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height: 40px;
+    padding-bottom: 20px;
+}
+.category {
+    width: 105px;
+    height: 25px;
+}
+#title {
+    width: 300px;
+    height: 21px;
+    border: none;   
+    box-shadow: 0px 1px 1px  rgba(51, 51, 51, 0.2);
+
+}
+label {
+    margin-left: 10px;
+    font-size: large;
+    font-weight: bold;
+
+}
+
+h1{
+    width: 0 auto;
+    font-size: 42px;
+}
