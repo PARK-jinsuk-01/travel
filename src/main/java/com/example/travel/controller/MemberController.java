@@ -1,24 +1,18 @@
 package com.example.travel.controller;
 
-// import java.security.Principal;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.security.core.Authentication;
-// import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-// import org.springframework.web.bind.annotation.ControllerAdvice;
-// import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-// import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -109,7 +103,6 @@ public class MemberController {
     @GetMapping("/mypage")
     public String mypage(@RequestParam int memberId, Model model) {
 
-        System.out.println(memberId + "@@@@@@@");
         Member selectMember = memberRepository.findById(memberId).get();
         model.addAttribute("member", selectMember);
         return "sign/mypage";
@@ -118,7 +111,6 @@ public class MemberController {
     @PostMapping("/updateUserInfo")
     @ResponseBody
     public String updateUserInfo(@RequestBody Map<String, String> data) {
-        // System.out.println(data);
         if (data == null) {
             return "로그인이 필요합니다.";
         }
@@ -131,25 +123,15 @@ public class MemberController {
         String mm = (String) data.get("mm");
         String dd = (String) data.get("dd");
 
-        System.out.println(data);
         if (pw == null || pw.isEmpty() ||
                 phone == null || phone.isEmpty()) {
             return "모든 필드를 작성해주세요.";
         }
-        System.out.println(data + "@#@#@#@#@#@@#");
         String birth = (String) (yy + "-" + mm + "-" + dd);
-
-        // Member phoneCheck = memberRepository.findByPhone(phone);
-        // if (phoneCheck != null) {
-        //     return "중복된 핸드폰 번호입니다.";
-        // }
 
         String rawPassword = pw;
         String encodedPassword = passwordEncoder.encode(rawPassword);
-        System.out.println(data + "!@!@@!@!@#!#!##!#!#!");
         Member member = memberRepository.findById(id).get();
-
-        System.out.println("#@$!$" + id);
 
         // 업데이트할 사용자 정보 설정
         member.setId(id);
@@ -160,10 +142,9 @@ public class MemberController {
         member.setMm(mm);
         member.setDd(dd);
         member.setBirth(birth);
-        // System.out.println(member + "!@!@!!@");
         memberRepository.save(member);
 
-        return "정보가 업데이트되었습니다.";
+        return "/";
     }
 
 }

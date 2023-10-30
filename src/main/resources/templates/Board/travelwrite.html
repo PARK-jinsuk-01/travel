@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/cssjs/write.css}" />
     <title>Write Travel</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.tiny.cloud/1/3k8g5gbfihgqku2qwn22ivwfwzgmsh1f1bozrx1xsgiqn43z/tinymce/5/tinymce.min.js"
@@ -12,15 +13,26 @@
 </head>
 
 <body>
-    <h1>Travel</h1>
+    <header>
+        <div>
+            <a href="/">
+                <h1>Travel</h1>
+            </a>
+        </div>
+    </header>
     <form action="/write" method="post" id="writeForm">
-        <select name="category">
-            <option value="plan">여행계획</option>
-            <option value="board">여행일지</option>
-        </select>
-        <input type="text" name="title" id="title" placeholder="제목">
+        <div class="seltitbox">
+            <select class="category" name="category">
+                <option value="plan">여행계획</option>
+                <option value="board">여행일지</option>
+            </select>
+            <label for="title"> 제목
+                <input type="text" name="title" id="title" >
+            </label>
+                <button type="button" id="saveButton">게시글 저장</button>
+        </div>
         <textarea id="editor" name="content"></textarea>
-        <button type="button" id="saveButton">게시글 저장</button>
+
         <input type="hidden" id="id" th:if="${session.id != null}" th:value="${session.id}">
     </form>
     <input id="page" type="hidden" th:value="${page} != null ? ${page}:'' ">

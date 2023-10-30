@@ -47,12 +47,12 @@ div {
 .gnbCommon .logo {
     position: absolute;
     left: 60px;
-    top: 28px;
+    top: 0px;
 }
 .gnbCommon .logo a {
     display: inline-block;
     width: 207px;
-    height: 36px;
+    height: 86px;
 }
 h1 {
     display: block;
@@ -135,6 +135,7 @@ h1 {
     border-bottom: 1px solid black; 
 }
 .gnbCommon .input input {
+    outline: none;
     width: 100%;
     height: 40px;
     box-sizing: border-box;
@@ -150,7 +151,6 @@ h1 {
     font-weight: 300;
 }
 input[type=text] {
-    padding: 0 5px;
     border-radius: 0;
 }
 .search {
@@ -371,7 +371,7 @@ ul , li {
 .list_reply .txt {
     width: 830px;
     float: left;
-    padding-left: 20px;
+    padding-top: 6px;
 }
 .list_reply .txt p {
     padding-bottom: 5px;
@@ -380,9 +380,28 @@ ul , li {
     word-break: break-all;
     padding-right: 23px;
 }
+.mbutton{
+    padding-top: 3px;
+    display: block;
+    margin-top: 4px;
+}
+.date{
+    margin-left: 70px;
+}
+.mbtn {
+    display: flex;
+    justify-content: end;
+    width: 100%;
+}
+.editComment{
+    display: block;
+    width: 90%;
+    padding: 3rem;
+}
 .list_reply .txt .date {
     color: #333;
     font-size: 14px;
+    margin-left: 5px;
 }
 .list_reply .txt .name {
     display: inline-block;

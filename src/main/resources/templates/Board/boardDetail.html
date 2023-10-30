@@ -64,7 +64,7 @@
                 <span name="name" th:text="${travelBoard.member.name}"></span>
             </div>
             <div class="post_area">
-                <button type="button" class="btn_good"  id="likeButton">
+                <button type="button" class="btn_good" id="likeButton">
                     <span class="ico">좋아요</span>
                     <span class="num" id="conLike"></span>
                 </button>
@@ -74,7 +74,6 @@
                 </span>
             </div>
         </div>
-        <!-- <hr> -->
         <div class="cont_detail">
             <div class="content">
                 <p th:utext="${travelBoard.content}"></p>
@@ -89,38 +88,49 @@
                         <form name="tform" id="tform">
                             <label class="blind" for="comment">로그인 후 소중한 댓글을 남기시오.</label>
                             <span class="writeform" style="height: 80px;">
-                                <textarea name="" id="comment" cols="30" rows="10" placeholder="로그인 후 소중한 댓글을 남기시오."
-                                    style="height: 80px;"></textarea>
-                                </span>
-                                <div class="push">
-                                    <button class="tenter" type="button" onclick="">입력</button>
-                                </div>
-                            </form>
+                                <textarea name="comment" id="textareaId" cols="30" rows="10"
+                                    placeholder="로그인 후 소중한 댓글을 남기시오." style="height: 80px;"></textarea>
+                            </span>
+                            <div class="push">
+                                <button id="submitButton" class="tenter" type="button" onclick="tenter()">입력</button>
+                            </div>
+                        </form>
                     </div>
                     <div class="reply">
                         <div class="list_reply">
-                            <ul>
+                            <ul th:each="comment : ${commentList}">
                                 <li id="">
                                     <div class="profile">
                                         <div class="photo"></div>
                                     </div>
                                     <div class="txt">
-                                        <p>가나다라마바사아</p>
+                                        <p id="commContent" th:text="${comment.content}"></p>
                                         <div class="date">
-                                            <em class="name">동경민</em>
-                                            <span class="reply_date">23.10.25</span>
+                                            <em class="name" th:text="${comment.member.name}"></em>
+                                            <span class="reply_date"
+                                                th:text="${#temporals.format(comment.commentTime, 'yy년 mm월 dd일')}"></span>
                                         </div>
                                     </div>
                                     <div class="active">
                                         <div>
-                                            <button type="button" class="btn1">
-                                                <div></div>
-                                                <span>0</span>
+                                            <input type="hidden" class="memberId" th:value="${comment.member.id}">
+                                            <input type="hidden" class="cid" th:if="${comment.id != null}"
+                                                th:value="${comment.id}">
                                             </button>
-                                            <button type="button" class="btn2">
-                                                <div></div>
-                                                <span>0</span>
+                                            <button type="button" class="delete"
+                                                th:if="${#session.getAttribute('id') == comment.member.id}">
+                                                삭제
                                             </button>
+                                            <button type="button" id="modify" class="modify"
+                                                th:if="${#session.getAttribute('id') == comment.member.id}">수정</button>
+                                        </div>
+                                        <div style="display: none;" id="editInput" class="mBox">
+                                            <input type="text" id="editComment" class="editComment"
+                                                placeholder="댓글을 수정하세요">
+                                                <div class="mbtn">
+                                            <button type="button" class="mbutton" id="editButton">
+                                                완료</button>
+                                                </div>
                                         </div>
                                     </div>
                                 </li>
@@ -147,13 +157,19 @@
     var boardid = document.getElementById("boardid");
     var boardId = boardid.value;
     var likeButton = document.getElementById("likeButton");
+
     const num = document.querySelector('#conLike');
 
     var param = { memberId: memberId.value, boardId: boardId };
 
+    var comment = document.getElementById("textareaId");
+    var replyId = document.getElementById("modify");
+    var reply = { memberId: memberId.value, boardId: boardId, comment1: comment.value }
+
+
     async function checkLike() {
         try {
-            
+
             const response = await fetch('/bcheckLike', {
                 method: 'POST',
                 headers: {
@@ -195,11 +211,11 @@
                 body: JSON.stringify(param)
 
             });
-            
+
             if (response.ok) {
                 const data = await response.json();
                 alert(data.msg);
-                if(data.result) {
+                if (data.result) {
                     checkLike();
                 }
             } else {
@@ -210,5 +226,146 @@
         }
     });
 
+    ///댓글
+
+    async function tenter() {
+        if (comment.value === "") {
+            alert("댓글 내용을 입력하세요.");
+            return;
+        }
+
+        try {
+            const requestBody = {
+                memberId: memberId.value,
+                boardId: boardid.value,
+                comment: comment.value,
+                replyId: null
+            };
+
+            const response = await sendCommentRequest("/bComment", requestBody);
+
+            if (response.ok) {
+                const result = await response.json();
+                if (result.result) {
+                    alert(result.msg);
+                    window.location.reload();
+                } else {
+                    alert("댓글 저장 실패: " + result.msg);
+                }
+            } else {
+                alert("서버 오류로 댓글을 저장할 수 없습니다.");
+            }
+        } catch (error) {
+            console.error("댓글 저장 중 오류 발생:", error);
+        }
+    }
+
+    async function sendCommentRequest(url, data) {
+        const response = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        });
+
+        if (!response.ok) {
+            throw new Error("서버 응답에 문제가 있습니다.");
+        }
+
+        return response;
+    }
+
+
+
+    ///수정
+    modifyButton = document.querySelectorAll('.modify');
+
+    for (let i = 0; i < modifyButton.length; i++) {
+        modifyButton.item(i).addEventListener("click", () => {
+
+            document.querySelectorAll('.mBox').item(i).style.display = "block";
+        })
+
+    }
+    function editReply(button) {
+        var editInput = document.getElementById("editInput");
+        editInput.style.display = "block";
+    }
+
+    let mbutton = document.querySelectorAll(".mbutton");
+    let cid = document.querySelectorAll('.cid');
+    let newComment = document.querySelectorAll('.editComment');
+    let userId = document.querySelectorAll('.memberId');
+
+    for (let i = 0; i < mbutton.length; i++) {
+
+        mbutton.item(i).addEventListener("click", () => {
+
+            fetch('/pComment', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ replyId: cid.item(i).value, newComment: newComment.item(i).value, memberId: userId.item(i).value, boardId, boardId })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // 서버로부터의 응답을 처리
+                    if (data.result) {
+                        alert(data.msg);
+                        // 성공적으로 수정됨
+                        window.location.reload();
+                    } else {
+                        alert(data.msg);
+                        // 수정 실패 또는 댓글 확인 불가
+                    }
+                })
+                .catch(error => {
+                    console.error('에러:', error);
+                });
+            // 수정 input을 다시 숨깁니다.
+            var editInput = document.getElementById("editInput");
+            editInput.style.display = "none";
+
+        })
+    }
+    /////삭제
+    const dtnD = document.querySelectorAll(".delete");
+
+    for (let i = 0; i < dtnD.length; i++) {
+
+
+        dtnD.item(i).addEventListener("click", () => {
+            fetch('/bdelete', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ replyId: cid.item(i).value, memberId: userId.item(i).value })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.result) {
+                        alert(data.msg);
+                        // 성공적으로 삭제되었을 때 처리
+                        window.location.reload();
+                    } else {
+                        // 삭제에 실패했을 때 처리
+                        alert(data.msg);
+
+                    }
+                })
+                .catch(function (error) {
+                    // 오류 발생 시 처리
+                    console.error("에러:", error);
+                });
+
+
+
+        })
+    }
+
 </script>
+
 </html>

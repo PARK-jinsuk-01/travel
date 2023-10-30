@@ -45,4 +45,10 @@ public class TravelPlan {
 
     @OneToMany(mappedBy = "travelPlan")
     List<TravelLike> likes = new ArrayList<>();
+
+    @OneToMany(mappedBy = "travelPlan")
+    List<Comment> comments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "travelPlan")
+    List<CommentLike> cLikes = new ArrayList<>();
 }
