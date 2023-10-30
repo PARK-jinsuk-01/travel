@@ -7,7 +7,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.example.travel.interceptor.SignInCheckInterceptor;
 
-// @Configuration
+@Configuration
 public class InterceptorConfig implements WebMvcConfigurer {
 
     @Autowired
@@ -16,11 +16,10 @@ public class InterceptorConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(signInCheckInterceptor)
-        .addPathPatterns(
-            "/**")
+        .addPathPatterns("/**")
         .excludePathPatterns(
-            "/signin","/signup"
-        );
+            "/signin", "/signup","/", "/cssjs/**", "/img/**"
+          );
         WebMvcConfigurer.super.addInterceptors(registry);
     }
 }
