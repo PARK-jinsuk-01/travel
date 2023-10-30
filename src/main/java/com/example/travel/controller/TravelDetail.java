@@ -517,26 +517,3 @@ System.out.println(map);
     return map;
 }
 }
-
- 
-
-
-/////////////////////////////////////////// 페이지
-// @GetMapping("/loadMoreComments")
-// public Map<String, Object> loadMoreComments(@RequestParam("travelPlanId")
-/////////////////////////////////////////// Integer travelPlanId,
-// @RequestParam("page") int page,
-// @RequestParam("size") int size) {
-// Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC,
-/////////////////////////////////////////// "id"));
-// Page<Comment> commentsPage =
-/////////////////////////////////////////// commentRepository.findByTravelPlanIdOrderByIdDesc(travelPlanId,
-/////////////////////////////////////////// pageable);
-// List<Comment> comments = commentsPage.getContent();
-
-// Map<String, Object> response = new HashMap<>();
-// response.put("comments", comments);
-// response.put("hasMore", !commentsPage.isLast());
-
-// return response;
-// }
