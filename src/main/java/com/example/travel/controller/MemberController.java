@@ -48,7 +48,6 @@ public class MemberController {
         String mm = (String) data.get("mm");
         String dd = (String) data.get("dd");
 
-        System.out.println(data.get("yy"));
         if (email == null || email.isEmpty() ||
                 pw == null || pw.isEmpty() ||
                 phone == null || phone.isEmpty()) {
@@ -57,7 +56,6 @@ public class MemberController {
 
         String birth = (String) (yy + "-" + mm + "-" + dd);
 
-        System.out.println(birth);
         // 세션 데이터와 입력 데이터 비교
 
         Member emailCheck = memberRepository.findByEmail(email);
