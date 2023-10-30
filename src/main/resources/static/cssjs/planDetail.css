@@ -67,8 +67,11 @@ h1 {
 }
 
 .logo img{
-    height: 100%;
-    width: 100%;
+    position: relative;
+    height: 80px;
+    width: 150px;
+    left: -55px;
+    bottom: 25px;
 }
 
 .gnbCommon .menu {

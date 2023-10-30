@@ -17,3 +17,4 @@ public class Hotplaces {
     Double longitude;
     Double latitude;
 } 
+

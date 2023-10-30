@@ -8,24 +8,70 @@
 <head>
 
     <meta charset="utf-8">
-    <title>커스텀 오버레이 생성하기2</title>
+    <title>편의시설 찾기</title>
     <link rel="stylesheet" th:href="@{/cssjs/map.css}">
 
 </head>
 
 <body>
+    <div class="wrapper">
+        <div class="bar">
+            <h1 class="logo">
+                <a href="/">
+                    <img src="/img/logo.png" alt="Travel">
+                </a>
+            </h1>
+            <div class="barleft">
+                <div class="allmenu">
+                    <a href="">
+                        <span class="baricon">
+                            <i class="fa-solid fa-bars"></i>
+                        </span>
+                        <span>메뉴</span>
+                    </a>
+                </div>
+            </div>
+            <div class="barright">
+                <div class="join">
+                    <button th:if="${email == null}"><a href="/signup">회원가입</a></button>
+                </div>
+                <div class="login" id="login-logout">
+                    <button id="login-button" th:if="${email == null}" onclick="loginOrLogin()">로그인</button>
+
+                    <button id="login-button" th:if="${email != null}" onclick="loginOrLogout()">로그아웃</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="subwrapper">
+        <nav class="subnav">
+            <ul>
+                <li>
+                    <a href="#">공지사항</a>
+                </li>
+                <li>
+                    <a href="#">여행계획</a>
+                </li>
+                <li>
+                    <a href="#">여행일지</a>
+                </li>
+                <li>
+                    <a href="#">고객센터</a>
+                </li>
+                <li>
+                    <!-- <span class="input">
+                        <input type="text" id="searchInput" placeholder="어떤 여행?">
+                        <input type="button" id="searchButton" class="search"value="검색">
+                    </span> -->
+                </li>
+            </ul>
+        </nav>
+    </div>
     <div class="map_wrap">
 
-        <ul id="category-2">
-            <li>
-                <div class="filter_btn">
-                    <button class="all_recommend totalList on"
-                        onclick="toggleSidebarAndDrawRankList('totalList')"><i></i>전체</button>
-                </div>
-            </li>
-        </ul>
-        
-        <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
+
+
+        <div id="map" style="width:100%;height:123%;position:relative;"></div>
         <ul id="category">
             <li id="BK9" data-order="0">
                 <span class="category_bg bank"></span>
@@ -52,23 +98,19 @@
                 편의점
             </li>
         </ul>
-        <button id="tourismSearchButton" onclick="searchTourism()">관광명소 검색</button>
+        <div class="openbox">
+            <button class="all_recommend totalList on" id="openbtn"
+                onclick="toggleSidebarAndDrawRankList('totalList')"></button>
+        </div>
+
     </div>
     <div class="container">
         <!-- <div class="toggle-button" id="toggleButton">&#9776;</div> -->
         <div class="sidebar" id="sidebar">
-            <button class="close-button" id="closeButton">❌</button>
-            <div class="listContainer"> 
-                
-                    <select id="regionSelect" style="margin-left: auto;">
-                        <option value="seoul">광주</option>
-                        <option value="busan">부산</option>
-                        <option value="daegu">대구</option>
-                        <option value="daegu">서울</option>
-                        <!-- 다른 지역 옵션들을 추가 -->
-                    </select>
-                
-                <li>
+            <button class="close-button" id="closeButton"></button>
+            <div class="listContainer">
+
+                <!-- <li>
                     <div> <span class="rank">1위</span> <span></span> </div>
                     <div class="list_area">
                         <div class="brand_name">
@@ -90,28 +132,53 @@
                         <div class="brand_name">
                             <p>테이트모던</p>
                         </div> <span class="address">광주 서구 상무대로673번길 24-0</span>
+                </li> -->
+
+
+                
+                <li id="cat">
+                    <br>
+                    <div class="map_wrap">
+                        <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
+                    
+                        <!-- <div id="menu_wrap" class="bg_white">
+                            <div class="option">
+                                <div>
+                                    <form onsubmit="searchPlaces(); return false;">
+                                        키워드 : <input type="text" value="광주 광산구 맛집" id="keyword" size="15"> 
+                                        <button type="submit">검색하기</button> 
+                                    </form>
+                                </div>
+                            </div>
+                            <hr> -->
+                            <ul id="placesList"></ul>
+                            <div id="pagination"></div>
+                        </div>
+                    </div>
+                    <form id="searchForm">
+                        <input type="button" value="관광명소 알아보기" id="query" style="display: none;"
+                            placeholder="Search for places">
+                        <button type="submit" style="z-index: 1;">관광명소 찾기</button>
+                    </form>
                 </li>
-                
-                
-                    <li id="cat">
-                        <form id="searchForm">
-                            <input type="button" value="관광명소 알아보기" id="query" style="display: none;" placeholder="Search for places">
-                            <button type="submit" style="z-index: 1;">관광명소 찾기</button>
-                        </form>
-                    </li>
-                
+                <!-- <div id="searchForm" style="position: relative; top: 30px; left: 20px; z-index: 1000;">
+                    <input type="text" id="query" placeholder="장소 검색">
+                    <button type="submit">검색</button>
+                </div> -->
             </div>
         </div>
-        
+
     </div>
 
 
     <!-- <div id="map" style="width: 50%; height: 500px;"></div> -->
     <script>
+
+
         document.getElementById('searchForm').addEventListener('submit', function (e) {
             e.preventDefault(); // 기본 제출 방지
             var query = document.getElementById('query').value;
-            
+
             if (query) {
                 var url = '/map/hotplace?query=' + encodeURIComponent(query);
                 window.location.href = url;
@@ -124,10 +191,15 @@
 
         function toggleSidebarAndDrawRankList(listType) {
             const sidebar = document.getElementById('sidebar');
-            if (sidebar.style.left === '-300px' || !sidebar.style.left) {
+            // if (sidebar.style.left === '-300px' || !sidebar.style.left) {
+            if (!document.getElementById('closeButton').classList.contains('open')) {
                 sidebar.style.left = '0';
+
+                document.getElementById('closeButton').classList.add('open');
+
             } else {
                 closeSidebar();
+
             }
             drawRankList(listType);
         }
@@ -135,6 +207,8 @@
         function closeSidebar() {
             const sidebar = document.getElementById('sidebar');
             sidebar.style.left = '-300px';
+            document.getElementById('closeButton').classList.remove('open');
+
         }
     </script>
 
@@ -228,6 +302,17 @@
 
             }
         }
+        document.getElementById('searchForm').addEventListener('submit', function (e) {
+    e.preventDefault(); // 기본 양식 제출을 방지합니다.
+    var query = document.getElementById('query').value;
+
+    if (query) {
+        currCategory = ''; // 선택된 카테고리 초기화
+        changeCategoryClass(); // 카테고리 스타일 초기화
+        // 키워드 검색을 수행합니다.
+        searchPlaces(query);
+    }
+});
 
         // 지도에 마커를 표출하는 함수입니다
         function displayPlaces(places) {

@@ -6,6 +6,59 @@
     <link rel="stylesheet" th:href="@{/cssjs/hotplace.css}">
 </head>
 <body>
+    <div class="wrapper">
+        <div class="bar">
+            <h1 class="logo">
+                <a href="/">
+                    <img src="/img/logo.png" alt="Travel">
+                </a>
+            </h1>
+            <div class="barleft">
+                <div class="allmenu">
+                    <a href="">
+                        <span class="baricon">
+                            <i class="fa-solid fa-bars"></i>
+                        </span>
+                        <span>메뉴</span>
+                    </a>
+                </div>
+            </div>
+            <div class="barright">
+                <div class="join">
+                    <button th:if="${email == null}"><a href="/signup">회원가입</a></button>
+                </div>
+                <div class="login" id="login-logout">
+                    <button id="login-button" th:if="${email == null}" onclick="loginOrLogin()">로그인</button>
+
+                    <button id="login-button" th:if="${email != null}" onclick="loginOrLogout()">로그아웃</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="subwrapper">
+        <nav class="subnav">
+            <ul>
+                <li>
+                    <a href="#">공지사항</a>
+                </li>
+                <li>
+                    <a href="#">여행계획</a>
+                </li>
+                <li>
+                    <a href="#">여행일지</a>
+                </li>
+                <li>
+                    <a href="#">고객센터</a>
+                </li>
+                <li>
+                    <!-- <span class="input">
+                        <input type="text" id="searchInput" placeholder="어떤 여행?">
+                        <input type="button" id="searchButton" class="search"value="검색">
+                    </span> -->
+                </li>
+            </ul>
+        </nav>
+    </div>
 <div id="map"></div>
 <div id="searchContainer">
     <div class="region">
@@ -22,7 +75,9 @@
 <span id="openNav" onclick="openNav()">&#9776; 관광지 목록 보기</span>
 <div id="sidebar">
     <button class="close-button" id="closeButton"onclick="closeNav()">❌</button>
-<div id="search_results"></div></div>
+    <button class="convenient" onclick="redirectToMap()">편의시설 찾기</button>
+<div id="search_results"></div>
+</div>
 <button id="searchAgainButton">내 위치 기준 관광명소 검색</button>
 <br><br>
 <button id="searchCenterButton">&#8635;&nbsp; 현 지도에서 검색</button>
@@ -230,13 +285,16 @@
     }
 
     function openNav() {
-        document.getElementById("sidebar").style.width = "250px";
+        document.getElementById("sidebar").style.width = "350px";
         document.getElementById("main").classList.add("pushed");
     }
 
     function closeNav() {
         document.getElementById("sidebar").style.width = "0";
         document.getElementById("main").classList.remove("pushed");
+    }
+    function redirectToMap() {
+        window.location.href = '/map'; // 이 URL을 '/map' 페이지로 변경하세요.
     }
 </script>
 </body>

@@ -59,7 +59,7 @@
         <div class="main_link">
             <ul>
                 <li>
-                    <a href="#">
+                    <a href="/map/hotplace">
                         <!-- <img src="/img/earth.png" alt=""> -->
                  <i class="fa-solid fa-earth-americas"></i>       
                         <p>경민이의 세계지도</p>
@@ -89,8 +89,8 @@
                         <p>커뮤니티</p>
                     </a>
                 </li>
-                <li>
-                    <a href="/modification">
+                <li th:if="${session.id}">
+                    <a th:href="@{/mypage(memberId=${session.id})}">
                         <i class="fa-solid fa-user-pen"></i>
                         <p>내정보</p>
                     </a>

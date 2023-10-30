@@ -1,0 +1,638 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    list-style: none;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+
+html {
+    width: 100%;
+    height: 100%;
+}
+
+/* 상단 */
+html{
+    margin: 0;
+    width: 100%;
+    display: block;
+    box-sizing: border-box;
+}
+
+body {
+    position: relative;
+    margin: 0;
+    background-color: #f8f9fa;
+    color: #737881;
+    font: 14px malgun gothic,"sans serif";
+    width: 100%;
+    line-height: 1;
+    overflow-y: scroll;
+    display: block;
+}
+
+div .wrapper{
+    margin: 0;
+    min-width: 1064px;
+    border-bottom-color: #fff;
+}
+input[type=text]{
+    /* position: absolute; */
+    padding: 0 10px;
+    border-radius: 0;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    height: 20px;
+    border:0;
+}
+
+.search {
+    display: inline-block;
+    border: 0 none;
+    position: relative;
+    right: 0;
+    top: -2px;
+    text-indent: -9999px;
+    width: 24px;
+    height: 24px;
+    background: url(https://korean.visitkorea.or.kr/resources/images/common/btn_header_search.png);
+}
+
+.wrapper {
+    margin-top: -15px;
+    position: relative;
+    display: block;
+    width: 100%;
+    min-width: 360px;
+    height: 80px;
+    color: #737881;
+    line-height: 1;
+    font: 12px"sans serif";
+    border-bottom: 1px solid #dde1e5;
+    background-color: #fff;
+    z-index: 9999999;
+}
+
+.wrapper .logo {
+    height: 62px;
+    text-align: center;
+}
+
+.wrapper .logo a {
+    width: 100%;
+    position: relative;
+    display: inline-block;
+    text-decoration: none;
+}
+
+.wrapper a, .wrapper a .icon {
+    transition: all .15s linear;
+}
+
+.wrapper .logo img {
+    vertical-align: top;
+    margin: -13px;
+    width: 175px;
+    overflow: hidden;
+}
+h1[class="logo"]{
+    margin-top: 10px;
+}
+h1 .barleft{
+    position: relative;
+    margin-top: 30px;
+}
+.wrapper .barleft {
+    height: 62px;
+    margin-top: -62px;
+    padding-left: 1px;
+}
+
+.wrapper .allmenu {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 107px;
+    height: 62px;
+    font-size: large;
+    font-weight: bold;
+}
+
+.wrapper .allmenu a {
+    display: block;
+    padding: 23px 23px 21px;
+}
+
+.wrapper .allmenu a:hover {
+    color: #07f;
+}
+
+.wrapper .barright {
+    display: flex;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 62px;
+    padding-right: 11px;
+    text-align: right;
+}
+
+.wrapper .barright>div {
+    position: relative;
+    margin-right: 8px;
+    z-index: 20;
+    box-sizing: border-box;
+}
+
+.wrapper .barright>div>a{
+    display: block;
+    height: 62px;
+
+}
+
+.wrapper .barright .join {
+    align-items: center;
+    display: flex;
+    zoom: 1;
+    padding: 0;
+}
+
+.wrapper .barright .join button {
+    border: none;
+    background: none;
+    font-size: large;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.wrapper .barright .login {
+    align-items: center;
+    display: flex;
+    padding: 13px 9px 0 0;
+    padding: 0;
+}
+
+.wrapper .barright .login button {
+    border: none;
+    background: none;
+    font-size: large;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button {
+    padding: 0;
+}
+
+.subwrapper {
+    margin-top: 0;
+    background-color:white;
+    position: relative;
+    min-width: 360px;
+    z-index: 9999998;
+    height: 55px;
+    min-width: 1064px;
+}
+
+.subwrapper .subnav ul {
+    width: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    font-size: large;
+    font-weight: bold;
+    border-bottom: 2px solid;
+}
+
+.subwrapper .subnav li a:hover {
+    cursor: pointer;
+    color: black;
+    border-bottom: 1px solid rgb(192, 186, 186);
+}
+
+.subwrapper .subnav li {
+    display: inline-block;
+    height: 55px;
+    margin: 0 16px 0 20px;
+}
+
+.subwrapper .subnav a {
+    display: block;
+    height: 37px;
+    padding-top: 18px;
+    color: #9fa1a7;
+    font: 16px;
+    transition: all .15s linear;
+}
+
+
+a {
+    text-decoration: none;
+    margin-top: 7px;
+    color: black;
+}
+a:hover{
+    color: #07f;
+}
+
+#wrapper {
+    background-color: #ffffff;
+    position: relative;
+    min-width: 1024px;
+    min-height: calc(100vh - 63px);
+    padding-bottom: 80px;
+}
+
+#contents {
+    margin: 0 auto;
+}
+.tab {
+    justify-content: center;
+    display: flex;
+    padding-top: 88px;
+
+    font: 700 24px 
+}
+
+.tab a {
+    display: block;
+    height: 41px;
+}
+
+.tab ul {
+    list-style: none;
+    display: flex;
+    list-style: none;
+    margin: 0 auto;
+    width: 65%;
+    padding: 0;
+    border: 0;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.tab .selected2 {
+    border-bottom: 2px solid #000;
+}
+
+.tab li {
+    display: inline-block;
+    margin-right: 35px;
+}
+
+.tab .selected a:hover {
+    color: #07f;
+}
+.tab .selected {
+    color: #737881;
+}
+
+
+
+
+/* 중앙 */
+input[type=text]{
+    position: relative;
+    padding-block: 10px;
+    padding-inline: 20px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+    /* margin-left: 20px; */
+    justify-content: space-between;
+    right: 0;
+    border: 1px solid;
+    border-bottom:3px solid #092a8d;
+    font-size: medium;
+}
+input[type="password" i]{
+    width: 392px;
+    padding-block: 10px;
+    padding-inline: 21px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    border: 1px solid;
+    border-bottom:3px solid #092a8d;
+    right: 10px;
+    /* margin-left: 21.79%; */
+    top: 0;
+
+}
+input[class="birth"]{
+    width: 18.4%;
+    
+}
+#emailcheckButton{
+    margin-top: 20px;
+}
+#email{
+    position: relative  ;
+    
+    width: 92%;
+    margin-right: 120px;
+    margin-left: 180px;
+    margin-top: -26px;
+    margin-bottom: 10px;
+}
+#echeckLabel{
+    position: relative;
+    display: inline-block;
+    margin: auto;
+    margin-bottom: 30px;
+}
+#result2{
+    position: relative;
+}
+
+h1{
+    margin-top: 20px;
+    text-align: center;
+    padding-bottom: 100px;
+    font-size: medium;
+    font-weight: bold;
+    
+}
+#mypageForm{
+    position: relative;
+    width: 600px;
+    left: 50%;
+    margin-left: -350px;
+    margin-top: 10px;
+    text-align: center;
+}
+.birthbox{
+    position: relative;
+    /* margin-top: 20px;s */
+    display: flex;
+    justify-content: center;
+    margin-left: 67px;
+    width: 30%;
+    
+    
+}
+.yy{
+    position: relative;
+    margin-left: 280px;
+    width: 87px;
+}
+.mm{
+    position: relative;
+    margin-left: 10px;
+    width: 87px;
+}
+.dd{
+    position: relative;
+    margin-left: 10px;
+    width: 87px;
+}
+
+.birthbox>span{
+    display: block;
+    
+    }
+
+    .btn-h {
+        /* border: 1px solid #006400; */
+                width: 50px;
+                height: 50px;
+                position: absolute;
+                margin-top: 10px;
+                margin-right: 10px;
+                padding: 0;
+                top: 0;
+                right: 0;
+                cursor: pointer;
+                border-radius: 1px;
+                border: hidden;
+                font-size: 40px;
+                background-color: rgba(255, 255, 255, 0);
+    }
+    .btn-e{
+        margin-top: 0;
+        margin-bottom: 10px;
+        position: absolute;
+        height: 37px;
+        width: 100px;
+        right: 10px;
+        top: 208px;
+        border: 1px solid #9fa1a7;
+        border-radius: 10px;
+    }
+
+    #result2{
+        position: relative;
+    }
+    #echeck{
+        position: relative;
+    
+        width: 59%;
+        margin-right: 5px;
+        margin-left: 183px;
+        margin-top: -26px;
+    }
+    #pw {
+        /* margin-bottom: 2px; */
+        /* width: 100%; */
+        position: relative;
+        
+        margin-left: 115px;
+        width: 60%;
+        right: 0px;
+    }
+    .pwtitle{
+        /* margin-left: 10px;s */
+        margin-right: 0;
+    }
+    label[class="pwtitle"]{
+        position: relative;
+        left: 58px;
+    }
+    #name{
+        position: relative;
+        
+        margin-left: 96px;
+        right: 0px;
+        width: 60.2%;
+    }
+    .emailtitle{
+        position: relative;
+        margin-right: 70px;
+        left: -96px;
+        /* margin-left: 100px; */
+        width: 100px;
+    }
+    #confirmPw{
+        position: relative;
+        margin-left: 65px;
+        width: 60%;
+    }
+    .phonetitle{
+        position: relative;
+        right: 20px;
+    }
+    .currentPw{
+        position: relative;
+        left: 40px;
+        margin-left: 2px;
+        width: 60%ss;
+    }
+    .phone{
+        position: relative;
+       
+        margin-left: 37.2px;
+        height: 20px;
+        width: 60.5%;
+    }
+    .birth{
+        font-size: small;
+         position: relative;
+        margin-right: 5px;
+        margin-left: 50px;
+        width: 60%;
+    }
+    #birth{
+        padding-bottom: 80px;
+        position: relative;
+        left: 55px;
+    }
+    .birthtitle{
+        position: absolute;
+        width: fit-content;
+        margin-top: 25px;
+        left: 45px;
+        margin-right: 450px;
+        margin-left: 35px;
+    }
+    .nametitle{
+        position: relative;
+        left: 40px;
+    }
+    
+    .birthbox{
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        position: relative;
+        margin-right: 5px;
+        margin-left: 50px;
+        width: 60%;
+    }
+    
+    .birthbox>span{
+        position: relative;
+        display: block;
+        }
+    
+    h2{
+        text-align: center;
+        padding-bottom: 100px;
+        font-size: xx-large;
+        font-weight: bold;
+        
+    }
+    .btn-h {
+        /* border: 1px solid #006400; */
+                width: 50px;
+                height: 50px;
+                position: absolute;
+                margin-top: 10px;
+                margin-right: 10px;
+                padding: 0;
+                top: 0;
+                right: 0;
+                cursor: pointer;
+                border-radius: 1px;
+                border: hidden;
+                font-size: 40px;
+                background-color: rgba(255, 255, 255, 0);
+    }
+    .btn-e{
+        margin-top: 0;
+        margin-bottom: 10px;
+        position: absolute;
+        height: 37px;
+        width: 100px;
+        right: 10px;
+        top: 208px;
+        border: 1px solid #9fa1a7;
+        border-radius: 10px;
+    }
+    #signupButton {
+        /* color: black; */
+        margin-top: 140px;
+        font-weight: bold;
+        padding-block: 5px;
+        padding-inline: 10x;
+        margin-left: 570px;
+        border-radius: 10px;
+        border: 1px solid;
+        border-bottom:3px solid #092a8d;
+        width: 150px;
+    }
+    .pwbox{
+        position: relative;
+        margin-top: 5px;
+    }
+    .email{
+        margin-bottom: 0;
+        max-width: 492px;
+    }
+    .birthdetail{
+        width: 100%;
+        /* margin-left: 20%;
+        left: 177px;
+        margin-left: 177px;
+        width: 725px; */
+    }
+    .ebox{
+        margin-bottom: 10px;
+        position: relative;
+    }
+    #updateButton{
+        position: relative;
+        border-radius: 10px;
+        border: 1px solid;
+        box-shadow:3px 3px 5px 0 #092a8d;
+        width: 100px;
+        left: 60px;
+    }

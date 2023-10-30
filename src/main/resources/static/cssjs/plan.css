@@ -21,6 +21,32 @@ div .wrapper{
     min-width: 1064px;
     border-bottom-color: #fff;
 }
+input[type=text]{
+    /* position: absolute; */
+    padding: 0 10px;
+    border-radius: 0;
+    margin-top: 15px;
+    height: 20px;
+    border:0;
+}
+.input{
+    position: absolute;
+    margin-left: 250px;
+    border-bottom: 1px solid;
+    
+   
+}
+.search {
+    display: inline-block;
+    border: 0 none;
+    position: relative;
+    right: 0;
+    top: -2px;
+    text-indent: -9999px;
+    width: 24px;
+    height: 24px;
+    background: url(https://korean.visitkorea.or.kr/resources/images/common/btn_header_search.png);
+}
 
 .wrapper {
     margin-top: -15px;
@@ -315,6 +341,10 @@ a {
 }
 .travelcard img:hover {
     transform: scale(1.1);
+}
+.form{
+    margin-left: 200px;
+    top: 10px;
 }
 .detail {
     margin-top: 13px;

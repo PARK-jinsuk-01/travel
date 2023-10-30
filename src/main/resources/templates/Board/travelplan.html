@@ -55,6 +55,12 @@
                 <li>
                     <a href="#">고객센터</a>
                 </li>
+                <li>
+                    <span class="input">
+                        <input type="text" id="searchInput" placeholder="어떤 여행?">
+                        <input type="button" id="searchButton" class="search"value="검색">
+                    </span>
+                </li>
             </ul>
         </nav>
     </div>
@@ -160,7 +166,46 @@
     function writego() {
         winow.location.href = "/write?page=board";
     }
+//  // 검색 버튼을 클릭했을 때의 동작
+//  document.getElementById("searchButton").addEventListener("click", function () {
+//         // 입력 필드에서 검색어를 가져옵니다
+//         const searchQuery = document.getElementById("searchInput").value.trim().toLowerCase();
 
+//         // 게시물 목록을 가져옵니다
+//         const articles = document.querySelectorAll(".travelcard");
+
+//         // 각 게시물을 확인하고 <p> 태그의 내용과 일치하는지 확인합니다
+//         articles.forEach(article => {
+//             const title = article.querySelector(".title p").textContent.toLowerCase();
+
+//             // 검색 결과에 따라 게시물을 표시하거나 숨깁니다
+//             if (title.includes(searchQuery)) {
+//                 article.style.display = "block";
+//             } else {
+//                 article.style.display = "none";
+//             }
+//         });
+//     });
+// 검색 버튼을 클릭했을 때의 동작
+document.getElementById("searchButton").addEventListener("click", function () {
+        // 입력 필드에서 검색어를 가져옵니다
+        const searchQuery = document.getElementById("searchInput").value.trim().toLowerCase();
+
+        // 게시물 목록을 가져옵니다
+        const articles = document.querySelectorAll(".travelcard");
+
+        // 각 게시물을 확인하고 <p> 태그의 내용과 일치하는지 확인합니다
+        articles.forEach(article => {
+            const title = article.querySelector(".title").textContent.toLowerCase();
+
+            // 검색 결과에 따라 게시물을 표시하거나 숨깁니다
+            if (title.includes(searchQuery)) {
+                article.style.display = "block"; // 검색어와 일치하는 경우 표시
+            } else {
+                article.style.display = "none"; // 일치하지 않는 경우 숨김
+            }
+        });
+    });
 
 </script>
 
