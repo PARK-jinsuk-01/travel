@@ -636,3 +636,7 @@ h1{
         width: 100px;
         left: 60px;
     }
+    .del{
+        position: relative;
+        left: 1100px;
+    }

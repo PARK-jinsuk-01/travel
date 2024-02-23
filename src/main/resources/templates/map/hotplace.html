@@ -82,7 +82,6 @@
 <br><br>
 <button id="searchCenterButton">&#8635;&nbsp; 현 지도에서 검색</button>
 <button id="clearMarkersButton">
-        <!-- <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTddL1KozhpCIElPcitXnBFsQvCy4LcK75uAh4Ae2KRRQBsc8BoHtm2T3ERkC1gqiLSFAQ&usqp=CAU" alt="Travel"> -->
     마커 초기화</button>
 
 
@@ -127,7 +126,7 @@
             alert('반경이 ' + newRadius + ' km로 설정되었습니다.');
         } else {
             alert('올바른 반경 값을 입력하세요.');
-        }
+        }ㄴ
     });
 
     searchAgainButton.addEventListener('click', function() {
@@ -180,6 +179,8 @@
             var distanceB = getDistanceFromCenter(b.y, b.x);
             return distanceA - distanceB;
         });
+        // alert(place)
+        console.log(places);
         for (var i = 0; i < places.length; i++) {
             var place = places[i];
             var distance = getDistanceFromCenter(place.y, place.x);

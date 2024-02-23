@@ -53,11 +53,8 @@ public class MemberController {
                 phone == null || phone.isEmpty()) {
             return "모든 필드를 작성해주세요.";
         }
-
         String birth = (String) (yy + "-" + mm + "-" + dd);
-
         // 세션 데이터와 입력 데이터 비교
-
         Member emailCheck = memberRepository.findByEmail(email);
         if (emailCheck != null) {
             return "이미 가입된 이메일입니다.";
@@ -80,7 +77,6 @@ public class MemberController {
         member.setMm(mm);
         member.setDd(dd);
         member.setBirth(birth);
-
         // Member 엔터티를 데이터베이스에 저장
         memberRepository.save(member);
 
@@ -144,5 +140,6 @@ public class MemberController {
 
         return "/";
     }
+    
 
 }

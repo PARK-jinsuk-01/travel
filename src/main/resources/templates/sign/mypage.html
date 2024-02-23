@@ -63,7 +63,7 @@
         </nav>
     </div>
     <h1>마이페이지</h1>
-
+    
     <form id="mypageForm" th:action="@{/updateUserInfo}" method="post" >
         <div>
             <input type="hidden" class="form-control" id="id" name="id" th:value="${member.id}">
@@ -116,13 +116,38 @@
         <li>
             <h1 id="birth" name="birth">생년월일: </h1>
         </li>
+        
+        
         <button type="button" onclick="updateUserInfo()" id="updateButton">정보 수정</button>
+    </form>
+    <form method="post" action="/withdrawal">
+        <input type="submit" class="del" value="회원 탈퇴">
     </form>
     <div id="updateResult"></div>
 
 
     <script>
-
+// function withdrawal() {
+//     const confirmWithdrawal = confirm("정말로 회원 탈퇴하시겠습니까?");
+    
+//     if (confirmWithdrawal) {
+//         // 확인 다이얼로그를 통해 사용자가 회원 탈퇴를 확인하면 탈퇴 요청을 서버로 보냅니다.
+//         fetch('/withdrawal', {
+//             method: 'DELETE'
+//         })
+//         .then(response => {
+//             if (response.ok) {
+//                 // 회원 탈퇴 성공 시 로그아웃 및 홈페이지로 리다이렉트
+//                 logout();
+//             } else {
+//                 alert('회원 탈퇴에 실패했습니다.');
+//             }
+//         })
+//         .catch(error => {
+//             console.error('Error:', error);
+//         });
+//     }
+// }
 
         async function validatePw() {
             const pw = document.querySelector("[name=pw]").value;
