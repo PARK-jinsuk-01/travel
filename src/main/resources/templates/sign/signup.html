@@ -147,6 +147,25 @@
 
 
     <script>
+        async function loginOrLogout() {
+        // 현재 버튼의 텍스트 값을 확인하여 로그인 상태인지 확인
+        try {
+            // 로그아웃 버튼을 클릭한 경우 세션 값 삭제
+            const response = await fetch("/logout", {
+                method: "POST"
+            });
+            const data = await response.json();
+            // 현재 페이지 리로드
+            location.reload();
+
+        } catch (error) {
+            console.error("오류 발생: " + error);
+        }
+    }
+    function loginOrLogin() {
+        window.location.href = "/signin";
+    }
+    
         
         const securitycode = document.getElementById("securitycode");
         async function emailcheck() {
