@@ -358,8 +358,8 @@
 
         document.addEventListener('DOMContentLoaded', function () {
             const loginButton = document.getElementById('login-button'); // 로그인 버튼
-    const email ="${email}"
-    if (email) {
+            const email ="<%= email %>"
+    if (ssesion.email) {
         // 사용자가 로그인 상태일 때
         loginButton.textContent = '로그아웃';
         loginButton.addEventListener('click', function () {
